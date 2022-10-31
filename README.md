@@ -25,4 +25,3 @@
 - Push lên nhánh: git push -u origin Nhánh (Nhớ chuyển vào nhánh của mình trước)
 
 # Sau khi xong nếu thấy code chạy ổn thì nhớ tạo 1 pull request
-
