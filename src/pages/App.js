@@ -1,5 +1,5 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import React from 'react';
-import '../css/App.css';
 import Homepage from './Homepage';
 import Login from './Login';
 import DangKi from './DangKi';
@@ -11,10 +11,16 @@ import Navbar from '../components/Navbar/Navbar';
 function App() {
   return (
     <div className="App">
-       {/* <Login/> */}
-       <Homepage/>
-       <ViewMore/>    
-       <VideoCourse/>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path='/' element={ <Homepage/> } />
+          <Route exact path='/Home' element={ <Homepage/> } />
+          <Route exact path='/ViewMore' element={ <ViewMore/> } />
+          <Route exact path='/VideoCourse' element={ <VideoCourse /> } />
+          <Route exact path='/Login' element={ <Login /> } />
+          <Route exact path='/Register' element={ <DangKi /> } />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

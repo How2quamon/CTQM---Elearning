@@ -6,7 +6,7 @@ function DangKi() {
         <div>
           <div class="Signup">
                 <form action="create-user" method="post">
-                @csrf
+                {/* @csrf */}
                 <section class="copy">
                 <h2>SIGN UP NOW</h2>
                 <div class="login-container">
