@@ -6,6 +6,10 @@
 - Các trang bỏ vào thư mục pages.
 
 # Cú pháp: 
+## Thay Remote:
+- Git init
+- Git remote add origin link
+
 ## Clone code:
 - Trước khi làm, nếu có thay đổi ở nhánh chính thì:
 - - Tải code từ nhánh về: git pull origin Tên nhánh (cập nhập thêm cái file chưa có)
