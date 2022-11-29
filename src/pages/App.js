@@ -1,12 +1,15 @@
 import React from 'react';
-//import '../css/App';
+import '../css/App.css';
+import Homepage from './Homepage';
+import Login from './Login';
 import DangKi from './DangKi';
 import ViewMore from './ViewMore';
-
 function App() {
-  return(
-    <div>
-      <ViewMore/>
+  return (
+    <div className="App">
+       {/* <Login/> */}
+       <Homepage/>
+       <ViewMore/>
     </div>
   );
 }
