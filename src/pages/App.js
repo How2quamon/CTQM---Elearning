@@ -1,12 +1,15 @@
+import React from 'react';
 import '../css/App.css';
 import Homepage from './Homepage';
-// import logo from '../logo.svg';
 import Login from './Login';
+import DangKi from './DangKi';
+import ViewMore from './ViewMore';
 function App() {
   return (
     <div className="App">
        {/* <Login/> */}
        <Homepage/>
+       <ViewMore/>
     </div>
   );
 }
