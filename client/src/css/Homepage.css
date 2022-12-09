@@ -1,0 +1,698 @@
+ *{
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+    
+}
+
+html {
+    scroll-behavior: smooth;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #F4F4F8;
+    
+}
+/* Định nghĩa các phương thức chung */
+h1 {
+    font-weight: normal;
+    font-size: 50px;
+    text-transform: uppercase;
+}
+
+b {
+    color: #A73729;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+body {
+    font-size: 14px;
+    font-family: 'Varela Round', sans-serif;
+} */
+
+/* ---------------------------------------------HEADER--------------------------------------------- */
+/* ---------------------------------------------Navigation--------------------------------------------- */
+/* @import url('https://fonts.googleapis.com/css?family=Josefin+Sans'); */
+
+.form-control {
+	box-shadow: none;
+	border-radius: 4px;
+}	
+.navbar {
+	background: #9F5449;
+	padding-left: 16px;
+	padding-right: 16px;
+	border-bottom: 1px solid #EB9762;
+	border-radius: 0;
+}
+.nav-link img {
+	border-radius: 50%;
+	width: 36px;
+	height: 36px;
+	margin: -8px 0;
+	float: left;
+	margin-right: 10px;
+}
+.navbar .navbar-brand {
+	padding-left: 10px;
+	font-size: 20px;
+  margin-top: 5px;
+	padding-right: 50px;
+  font-weight: 500;
+  letter-spacing: 5px;
+  font-family: 'Josefin Sans', cwtexyen, sans-serif;
+}
+.navbar .navbar-brand b {
+	color: #4F3A41;
+  font-weight: 700;
+}
+.navbar .form-inline {
+	display: inline-block;
+}
+.navbar .navbar-nav {
+	position: relative;
+}
+.navbar a, .navbar a:active {
+	color: #F4F4F4;
+	font-size: 16px;
+	background: #9F5449;
+  padding-right: 7px;
+}
+.navbar a:hover {
+	color: #EB9762;
+  
+}
+.search-box {
+	position: relative;
+}	
+.search-box input {
+	padding-right: 45px;
+	border-color: #dfe3e8;
+	border-radius: 4px !important;
+	box-shadow: none;
+  background: #F4F4F4;
+}
+.search-box .input-group-text {
+	min-width: 35px;
+	border: none;
+	background: transparent;
+	position: absolute;
+	right: 0;
+	z-index: 9;
+	padding: 7px;
+	height: 100%;
+}
+.search-box i {
+	color: #1B0E0C;
+	font-size: 20px;
+}
+.navbar .btn-primary, .navbar .btn-primary:active {
+	color: #F4F4F4;
+	padding-top: 8px;
+	padding-bottom: 6px;
+	border-radius: 4px;
+	vertical-align: middle;
+	border: 1px solid #F4F4F4;
+	width: 120px;
+	margin: 2px 0;
+}
+.navbar .btn-primary:hover, .navbar .btn-primary:focus {		
+	color: #F4F4F4;
+	background: #EB9762 !important;
+  border: 1px solid #EB9762;
+}
+.navbar .action-buttons .dropdown-toggle::after {
+	display: none;
+}
+
+.search-box .btn span {
+	transform: scale(0.9);
+	display: inline-block;
+}
+.navbar .nav-item i {
+	font-size: 18px;
+}
+.navbar .dropdown-item i {
+	font-size: 16px;
+	min-width: 22px;
+}
+.navbar .dropdown-menu {
+	border-radius: 1px;
+	border-color: #9F5449;
+	box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  background: #9F5449;
+}
+.navbar .navbar-nav .dropdown-menu a {
+	padding: 9px 19px;
+	line-height: normal;
+}
+.navbar .navbar-form {
+	border: none;
+}
+.navbar .navbar-form-wrapper {
+	padding: 0 15px;
+}
+
+@media (min-width: 1200px){
+	.form-inline .input-group {
+		width: 300px;
+		margin-left: 30px;
+	}
+}
+@media (max-width: 768px){
+	.navbar .form-inline {
+		display: block;
+	}
+	.navbar .input-group {
+		width: 100%;
+	}
+	.navbar .navbar-nav .btn-primary, .navbar .navbar-nav .btn-primary:active {
+		display: block;
+	}
+}
+/* ---------------------------------------------Slider--------------------------------------------- */
+/* SLOGAN */
+/* slider */
+#slogan-slider {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+#slogan-slider img {
+    width: 100%;
+    height: 100%;
+}
+
+#slogan-slider i:first-child {
+    position: absolute;
+    top: 50%;
+    left: 30px;
+    color: #ccc;
+    font-size: 40px;
+    transform: translateY(-50%);
+}
+
+#slogan-slider i:last-child {
+    position: absolute;
+    top: 50%;
+    right: 30px;
+    color: #ccc;
+    font-size: 40px;
+    transform: translateY(-50%);
+}
+
+/* ---------------------------------------------CONTENT--------------------------------------------- */
+/* Định nghĩa các phần nội dung */
+#content {
+    /* margin: 50px 0px; */
+    min-height: 1000px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ---------------------------------------------PRIME-PACKS--------------------------------------------- */
+#prime {
+    margin: 20px 100px;
+    padding: 20px 0;
+    padding-bottom: 30px;
+    flex-wrap: nowrap;
+}
+
+#prime .heading-line {
+    position: relative;
+    overflow: hidden;
+}
+
+#prime .string-line {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    width: 100%;
+    margin-left: 5px;
+    margin-top: 30px;
+    border: 1px solid #9E5449;
+
+}
+
+#prime .course-packs {
+    padding: 30px 0;
+    display: flex;
+    justify-content: space-around;
+    min-height: 260px;
+}
+
+#prime .prime-wrap {
+    box-sizing: border-box;
+    margin: 10px 30px;
+    display: inline-flex;
+    position: relative;
+    transition: 0.3s;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #3D1F1D;
+
+}
+
+#prime  .prime-wrap:hover {
+    box-shadow: 10px 10px #3D1F1D;
+    transform: scale(1.05);
+}
+
+#prime .ribbon-B {
+    position: absolute;
+    top: -5px;
+    right: 10px;
+}
+
+#prime .ribbon-B span {
+    position: relative;
+    display: block;
+    text-align: center;
+    background: #A73729;
+    color: #FDF1E9;
+    font-size: 13px;
+    line-height: 1;
+    padding: 9px 0px 0px;
+    width: 75px;
+}
+
+#prime .ribbon-B span::before {
+    position: absolute;
+    content: "";
+    height: 6px;
+    width: 6px;
+    left: -6px;
+    top: 0;
+    background: #000;
+    border-radius: 8px 0px 0 0;
+}
+
+#prime .ribbon-B::after {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 42px solid transparent;
+    border-right: 34px solid transparent;
+    border-top: 10px solid #A73729;
+}
+
+#prime a {
+    color: #3D1F1D;
+    text-decoration: none;
+    background-color: transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 270px;
+    text-overflow: ellipsis;
+}
+
+#prime .course-card-thumbnail img {
+    width: 100%;
+    height: 150px;
+}
+
+#prime .rounded-img {
+    border-style: none;
+    width: 100%;
+    height: 150px;
+}
+
+#prime .primepack-card-body {
+    min-height: 70px;
+    padding: 5pt 10pt 10pt 10pt!important;
+}
+
+#prime .primepack-card-body h4 {
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: capitalize;
+    height: 25px;
+    margin: 0px 0px 10px 0px;
+    padding: 0px;
+    line-height: 22px;
+    display: flex;
+    align-items: flex-start;
+    overflow: hidden;
+}
+
+
+#prime .primeback-body span {
+    float: left;
+    margin: 0 5px;
+    padding-right: 0.6em;
+    padding-left: 0.6em;
+    border-radius: 10rem;
+}
+#prime h4 {
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+#prime .videos-details {
+    width: 100%;
+    font-size: 13px!important;
+    padding: 4px 0px!important;
+    margin: 5px 0px!important;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+#prime .videos-details{
+    display: block;
+    margin-left: 5px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+#prime .videos-details span {
+    float: right;
+    margin: 0 5px;
+}
+
+#prime .clear {
+    clear: both;
+    line-height: 1px;
+}
+
+#prime .prime-viewmore {
+    text-align: right;
+    margin-right: 15px;
+    font-size: 20px;
+    max-height: 42px;
+}
+
+#prime .btn-viewmore {
+    color: #9E5449;
+    padding: 10px 15px;
+    margin: 2px 0px 0px 0px;
+    transition: 0.3s;
+}
+
+#prime .btn-viewmore:hover {
+    background-color: rgba(167, 55, 41, 0.1);
+}
+
+  
+
+/* ---------------------------------------------TUTORIALS--------------------------------------------- */
+
+#tutorials {
+    padding: 30px 0;
+    min-height: 700px;    
+    padding-bottom: 100px;
+}
+
+#tutorials h1{
+    text-align: center;
+    margin-bottom: 0;
+    /* background-color: #FDF1E9; */
+}
+
+#tutorials .major-intro{
+    padding: 30px 250px;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 50% 50%;
+}
+
+
+
+#tutorials h2 {
+    margin: 0;
+    text-align: left;
+    font-weight: 600;
+    color: #3D1F1D;
+    padding: 5px 5px 5px 10px;
+}
+
+#tutorials .major-pack {
+    width: 100%;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+    background-color: #ffe6e6;
+    grid-column: 1;
+}
+
+#tutorials .major-courses {
+    margin: 0;
+    padding: 10px 0px 10px 0px;
+    width: 100%;
+    text-align: center;
+}
+
+#tutorials .major--img {
+    /* padding: 50px 30px; */
+    padding-top: 150px;
+    padding-left: 50px;
+    grid-column: 2;
+    grid-row: 1 / 6;
+}
+
+#tutorials .img {    
+    height: auto;
+    width: 630px;
+    border: 2px solid #000;
+}
+
+#tutorials .major-courses a {
+    background-image: url(https://www.tutorialspoint.com/themes/home/library-sprites.jpg?v=11);
+    background-repeat: no-repeat;
+    width: 60px;
+    height: 50px;
+    margin: 0px 4px 44px 3px;
+    padding: 6px;
+    border-radius: 5px;
+    display: inline-block;
+    transition: 0.3s;
+}
+#tutorials .img-title {
+    text-align: center;
+    line-height: 18px;
+    margin-top: 50px;
+    padding: 0;
+    padding-top: 5px;
+    font-size: 13px;
+    color: #000;
+}
+
+#tutorials .code-course {
+    top: 0;
+    display: inline-flex;
+}
+
+#tutorials .mul-col-4 {
+    /* width: 10%; */
+    padding: 0 3%;
+}
+
+/* 
+#tutorials .major-courses a {
+    border: 0px solid #ccc;
+    width: 70px;
+    height: auto;
+    margin: 10px auto;
+    text-align: center;
+    padding: 6px;
+    position: relative;
+    /* display: inline-block; */
+
+/* } */
+
+#tutorials .major-courses a:hover {
+    /* padding: 10px; */
+    transform: scale(1.2);
+    text-decoration: none;
+}
+
+
+/* Cài đặt hình ảnh cho các khoá học */
+
+/* Web development */
+#tutorials .code-html a {
+    background-position: -444px -65px;
+}
+
+#tutorials .code-css a {
+    background-position: -515px -65px;
+}
+
+#tutorials .code-jvs a {
+    background-position: -584px -65px;
+}
+
+#tutorials .code-php a {
+    background-position: -659px -65px;
+}
+
+/* Computer science */
+
+#tutorials .code-cpf a {
+    background-position: -10px -65px;
+}
+
+#tutorials .code-cpd a {
+    background-position: -85px -65px;
+}
+
+#tutorials .code-ors a {
+    background-position: -154px -65px;
+}
+
+#tutorials .code-dts a {
+    background-position: -227px -65px;
+} 
+
+/* Machine Learning */
+
+#tutorials .code-mcl a {
+    background-position: -443px -5px;
+}
+#tutorials .code-tsf a {
+    background-position: -516px -4px;
+}
+#tutorials .code-mlp a {
+    background-position: -589px -4px;
+}
+#tutorials .code-aip a {
+    background-position: -659px -4px;
+} 
+/* Programming tutorials */
+#tutorials .code-cpg a {
+    background-position: -8px -121px;
+}
+#tutorials .code-cpp a {
+    background-position: -83px -122px;
+}
+#tutorials .code-jv8 a {
+    background-position: -155px -121px;
+}
+#tutorials .code-pyt a {
+    background-position: -227px -121px;
+}
+/* ---------------------------------------------FOOTER--------------------------------------------- */
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans");
+#footer {
+  background-color: #1B0E0C;
+  width: 100%;
+  color: #F4F4F4;
+  border-top: 4px solid #9F5449;
+  padding: 10px 10px;
+}
+.row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.row h3::first-letter {
+  font-size: 35px;
+  color: #9F5449;
+}
+.row h3 {
+  font-family: "Josefin Sans", cwtexyen, sans-serif;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+.row ul {
+  list-style: none;
+  padding-left: 0px;
+  line-height: 28px;
+}
+
+.row ul a {
+  color: #EB9762;
+}
+
+.row ul li {
+  margin: 0 5px;
+}
+
+.contact {
+  padding-left: 0px;
+}
+
+.contact span {
+  line-height: 28px;
+  vertical-align: top;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding-left: 10px;
+}
+
+.social {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 40px;
+  padding-bottom: 0px;
+  border-top: 1px solid #9F5449;
+  margin-top: 50px;
+}
+.copyright {
+  text-align: center;
+  padding-top: 24px;
+  font-weight: 500;
+  opacity: 0.8;
+  font-size: 16px;
+}
+#profile {
+  background-size: 200%;
+  background-position: center;
+  border-radius: 50%;
+  margin: 20px auto;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  display: inline-block;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+@media (max-width: 767px) {
+  #footer h3 {
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  #footer ul {
+    text-align: center;
+  }
+  .social {
+    margin: 0 auto;
+  }
+}
+@media (max-width: 1024px) {
+    #prime .course-packs {
+        flex-wrap: wrap;
+    }
+    #tutorials .major--img {
+        display: none;
+    }
+    #tutorials .major-intro{
+        grid-template-columns: 1fr;
+        justify-items: center;
+        padding: 0 64px;
+    }
+    .major-pack h2 {
+        position: absolute;
+    }
+    #tutorials .major-courses {
+        padding: 66px 0px 10px 0px;
+    }
+    .register-photo {
+        margin: 30px 45px;
+    }
+}
+.fa-chevron-circle-right:hover,
+.fa-chevron-circle-left:hover {
+    cursor: pointer;
+}
