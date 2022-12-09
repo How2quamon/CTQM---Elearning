@@ -1,11 +1,17 @@
 import React from "react";
+import Axios from 'axios';
 import '../css/Homepage.css';
 import '../css/responsive.css'
 import slogan1 from '../img/home/slogan1.jpg';
 import slogan2 from '../img/home/slogan2.jpg';
+import banner from '../img/home/background/coding team 3.jpg';
 import { useState, useEffect } from 'react';
 
  const Homepage = () => {
+    // Data
+    const [primePacks_detailsList, setPrimePacks_detailsList] = useState([]);
+    const [freePacks_detailsList, setFreePacks_detailsList] = useState([]);
+    // Slider
     const [slogann, setSlogann] = useState(slogan1);
     const arr_img = [slogan1, slogan2];
     const [index, setIndex] = useState(0);
@@ -24,11 +30,20 @@ import { useState, useEffect } from 'react';
         console.log(index);
     }
     useEffect(() => {
+        
+        // API
+        Axios.get("http://localhost:3001/homeprime").then((response) => {
+            setPrimePacks_detailsList(response.data);
+        });
+        Axios.get("http://localhost:3001/homefree").then((response) => {
+            setFreePacks_detailsList(response.data);
+        });
+
+        // Slider
         const interval = setInterval(next, 5000);
         return () => clearInterval(interval);
-    })
+    });
     return(
-        <>
     <div id="CTQM">
         <div id="header">
                {/* <!-- SIGN UP -->
@@ -50,41 +65,40 @@ import { useState, useEffect } from 'react';
                     <div class="string-line"></div>
                 </h1>
                 <div class="course-packs">
-                    {/* @foreach($data1 as $pack) */}
-                    <div class="prime-wrap">
-                        <div class="prime-pack rounded">
-                            <div class="ribbon-B">
-                                <span>Prime Pack</span>
-                            </div>
-                            {/* <!-- {{$pack->packs_name}} --> */}
-                            <div class="course-card-thumbnail rounded">
-                                <a href="ctqm-pack/{{$pack->id}}">
-                                    {/* <img class="rounded-img" src="{{url('viewmore')}}/img/{{ $pack->packs_name }}.jpg" alt="{{ $pack->packs_name }}" title="FullStack Web Development"/> */}
-                                    <img class="rounded-img" src="" alt="" />
-
-                                    <span class="prime-icon-trigger"></span>
-                                </a>
-                            </div>
-                            {/* backend */}
-                            {/* <div class="primepack-card-body">
-                                <h4 class="h48">
-                                    <a href="ctqm-pack/{{$pack->id}}">{{$pack->packs_name}}</a>
-                                </h4>
-                                <p class="videos-details">
-                                    <i class="fa fa-play-circle"></i> &nbsp;{{$pack->courses}} Courses &nbsp;&nbsp;
-                                    <span>
-                                        <i class="fa fa-file-pdf"></i> &nbsp;2 eBooks </span>
-                                    </span>
-                                </p>
-                            </div> */}
-                            <div class="primeback-body">
-                                <span>From CTQM</span>
-                            </div>
-                        </div>
-                    </div>          
+                    {/* @foreach */}
+                    {primePacks_detailsList.map((pack) => {
+                        return (
+                            <div class="prime-wrap">
+                                <div class="prime-pack rounded">
+                                    <div class="ribbon-B">
+                                        <span>Prime Pack</span>
+                                    </div>
+                                    <div class="course-card-thumbnail rounded">
+                                        <a href={`ctqm-pack/${pack.id}`}>
+                                            <img class="rounded-img" src={require(`../img/viewMore/${pack.packs_name}.jpg`)} alt="{pack.packs_name}" title="FullStack Web Development"/>
+                                            <span class="prime-icon-trigger"></span>
+                                        </a>
+                                    </div>
+                                    <div class="primepack-card-body">
+                                        <h4 class="h48">
+                                            <a href={`ctqm-pack/${pack.id}`}>{pack.packs_name}</a>
+                                        </h4>
+                                        <p class="videos-details">
+                                            <i class="fa fa-play-circle"></i> &nbsp;{pack.courses} Courses &nbsp;&nbsp;
+                                            <span>
+                                                <i class="fa fa-file-pdf"></i> &nbsp;2 eBooks
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="primeback-body">
+                                        <span>From CTQM</span>
+                                    </div>
+                                </div>
+                            </div>          
+                            ) 
+                        })}
                     {/* @endforeach */}
                 </div>
-
                 <div class="clear"></div>
                 <div class="prime-viewmore">
                     <a href="{{url('view-more/prime')}}" title="card view" class="btn-viewmore">
@@ -101,36 +115,39 @@ import { useState, useEffect } from 'react';
                     <div class="string-line"></div>
                 </h1>
                 <div class="course-packs">
-                    {/* @foreach($data2 as $pack2) */}
-                    <div class="prime-wrap">
-                        <div class="prime-pack rounded">
-                            <div class="ribbon-B">
-                                <span>Free Pack</span>
+                    {/* @foreach */}
+                    {freePacks_detailsList.map((pack2) => {
+                        return (
+                            <div class="prime-wrap">
+                                <div class="prime-pack rounded">
+                                    <div class="ribbon-B">
+                                        <span>Free Pack</span>
+                                    </div>
+                                    <div class="course-card-thumbnail rounded">
+                                        <a href={`ctqm-pack/${pack2.id}`} target="_blank">
+                                            <img class="rounded-img" src={require(`../img/viewMore/${pack2.packs_name}.jpg`)} alt={pack2.packs_name} title="FullStack Web Development"/>
+                                            <span class="prime-icon-trigger"></span>
+                                        </a>
+                                    </div>
+                                    {/* backend */}
+                                    <div class="primepack-card-body">
+                                        <h4 class="h48">
+                                            <a href={`ctqm-pack/${pack2.id}`} title="FullStack Web Development">{pack2.packs_name}</a>
+                                        </h4>
+                                        <p class="videos-details">
+                                            <i class="fa fa-play-circle"></i> &nbsp;{pack2.courses} Courses &nbsp;&nbsp;
+                                            <span>
+                                                <i class="fa fa-file-pdf"></i> &nbsp;2 eBooks
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="primeback-body">
+                                        <span>From CTQM</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="course-card-thumbnail rounded">
-                                <a href="ctqm-pack/{{$pack2->id}}" target="_blank">
-                                    {/* <img class="rounded-img" src="{{url('viewmore')}}/img/{{ $pack2->packs_name }}.jpg" alt="{{ $pack2->packs_name }}" title="FullStack Web Development"/> */}
-                                    <img class="rounded-img" src="" alt="" />
-                                    <span class="prime-icon-trigger"></span>
-                                </a>
-                            </div>
-                            {/* backend */}
-                            {/* <div class="primepack-card-body">
-                                <h4 class="h48">
-                                    <a href="ctqm-pack/{{$pack2->id}}" title="FullStack Web Development">{{ $pack2->packs_name }}</a>
-                                </h4>
-                                <p class="videos-details">
-                                    <i class="fa fa-play-circle"></i> &nbsp;{{$pack2->courses}} Courses &nbsp;&nbsp;
-                                    <span>
-                                        <i class="fa fa-file-pdf"></i> &nbsp;2 eBooks </span>
-                                    </span>
-                                </p>
-                            </div> */}
-                            <div class="primeback-body">
-                                <span>From CTQM</span>
-                            </div>
-                        </div>
-                    </div>
+                        )
+                    })}
                     {/* @endforeach */}
                 </div>
                 <div class="clear"></div>
@@ -154,7 +171,7 @@ import { useState, useEffect } from 'react';
                         </h2>
                         <div class="major-courses">
                             <div class="code-course code-html mul-col-4">
-                                <a href="{{url('CTQM-library')}}/9" target="_blank" title="HTML">
+                                <a href="" target="_blank" title="HTML">
                                     <div class="img-title">HTML</div>
                                 </a>
                             </div>
@@ -183,7 +200,7 @@ import { useState, useEffect } from 'react';
                         </h2>
                         <div class="major-courses">
                             <div class="code-course code-cpf mul-col-4">
-                                <a href="{{url('CTQM-library')}}/5" target="_blank" title="Computer-Fundamentals">
+                                <a href="" target="_blank" title="Computer-Fundamentals">
                                     <div class="img-title">Computer Fundamentals</div>
                                 </a>
                             </div>
@@ -212,7 +229,7 @@ import { useState, useEffect } from 'react';
                         </h2>
                         <div class="major-courses">
                             <div class="code-course code-mcl mul-col-4">
-                                <a href="{{url('CTQM-library')}}/1" target="_blank" title="Machine Learning">
+                                <a href="" target="_blank" title="Machine Learning">
                                     <div class="img-title">Machine Learning</div>
                                 </a>
                             </div>
@@ -241,7 +258,7 @@ import { useState, useEffect } from 'react';
                         </h2>
                         <div class="major-courses">
                             <div class="code-course code-cpg mul-col-4">
-                                <a href="{{url('CTQM-library')}}/13" target="_blank" title="C-Programming">
+                                <a href="" target="_blank" title="C-Programming">
                                     <div class="img-title">C Programming</div>
                                 </a>
                             </div>
@@ -263,14 +280,12 @@ import { useState, useEffect } from 'react';
                         </div>
                     </div>
                     <div class="major--img">
-                        {/* <img class="img" src="{{url('homepage')}}/img/background/coding team 3.jpg" alt="logo"/>          */}
-                        <img class="rounded-img" src="" alt="" />
+                        <img class="rounded-img" src={banner} alt="banner" />
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </>
     );
  };
  export default Homepage;
