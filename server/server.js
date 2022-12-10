@@ -30,6 +30,24 @@ app.get('/homefree', (req, res) => {
     });
 });
 
+// ViewMore
+
+app.get('/viewmore/prime', (req, res) => {
+    const sqlSelect = "SELECT * FROM packs_details where price > 0";
+    db.query(sqlSelect, (err, result) => {
+        res.send(result);
+    });
+});
+
+app.get('/viewmore/free', (req, res) => {
+    const sqlSelect = "SELECT * FROM packs_details where price = 0";
+    db.query(sqlSelect, (err, result) => {
+        res.send(result);
+    });
+});
+
+// Đăng nhập
+
 app.get('/log-in', (req, res) => {
     const sqlSelect = "SELECT * FROM users";
     db.query(sqlSelect, (err, result) => {
