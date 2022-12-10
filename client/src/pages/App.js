@@ -28,10 +28,10 @@ function App() {
           {/* Instructor */}
 
           {/* Xem khoá học */}
-          <Route exact path='/ViewMore' element={ <ViewMore/> } />
+          <Route exact path='/viewmore/:type' element={ <ViewMore/> } />
 
           {/* Trả phí */}
-          <Route exact path='/VideoCourse' element={ <VideoCourse /> } />
+          <Route exact path='/videocourse/:id' element={ <VideoCourse /> } />
 
           {/* Contact us */}
           

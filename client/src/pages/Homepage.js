@@ -1,7 +1,7 @@
 import React from "react";
 import Axios from 'axios';
 import '../css/Homepage.css';
-import '../css/responsive.css'
+import '../css/responsive.css';
 import slogan1 from '../img/home/slogan1.jpg';
 import slogan2 from '../img/home/slogan2.jpg';
 import banner from '../img/home/background/coding team 3.jpg';
@@ -30,7 +30,11 @@ import { useState, useEffect } from 'react';
         console.log(index);
     }
     useEffect(() => {
-        
+        // Slider
+        const interval = setInterval(next, 5000);
+        return () => clearInterval(interval);
+    });
+    useEffect(() => {
         // API
         Axios.get("http://localhost:3001/homeprime").then((response) => {
             setPrimePacks_detailsList(response.data);
@@ -38,11 +42,7 @@ import { useState, useEffect } from 'react';
         Axios.get("http://localhost:3001/homefree").then((response) => {
             setFreePacks_detailsList(response.data);
         });
-
-        // Slider
-        const interval = setInterval(next, 5000);
-        return () => clearInterval(interval);
-    });
+    }, []);
     return(
     <div id="CTQM">
         <div id="header">
@@ -68,20 +68,20 @@ import { useState, useEffect } from 'react';
                     {/* @foreach */}
                     {primePacks_detailsList.map((pack) => {
                         return (
-                            <div class="prime-wrap">
+                            <div class="prime-wrap" key={pack.id}>
                                 <div class="prime-pack rounded">
                                     <div class="ribbon-B">
                                         <span>Prime Pack</span>
                                     </div>
                                     <div class="course-card-thumbnail rounded">
-                                        <a href={`ctqm-pack/${pack.id}`}>
+                                        <a href={`/videocourse/${pack.id}`}>
                                             <img class="rounded-img" src={require(`../img/viewMore/${pack.packs_name}.jpg`)} alt="{pack.packs_name}" title="FullStack Web Development"/>
                                             <span class="prime-icon-trigger"></span>
                                         </a>
                                     </div>
                                     <div class="primepack-card-body">
                                         <h4 class="h48">
-                                            <a href={`ctqm-pack/${pack.id}`}>{pack.packs_name}</a>
+                                            <a href={`/videocourse/${pack.id}`}>{pack.packs_name}</a>
                                         </h4>
                                         <p class="videos-details">
                                             <i class="fa fa-play-circle"></i> &nbsp;{pack.courses} Courses &nbsp;&nbsp;
@@ -101,7 +101,7 @@ import { useState, useEffect } from 'react';
                 </div>
                 <div class="clear"></div>
                 <div class="prime-viewmore">
-                    <a href="{{url('view-more/prime')}}" title="card view" class="btn-viewmore">
+                    <a href='viewmore/prime' title="card view" class="btn-viewmore">
                         View More 
                         <i class="ti-angle-right"></i>
                     </a>
@@ -118,13 +118,13 @@ import { useState, useEffect } from 'react';
                     {/* @foreach */}
                     {freePacks_detailsList.map((pack2) => {
                         return (
-                            <div class="prime-wrap">
+                            <div class="prime-wrap" key={pack2.id}>
                                 <div class="prime-pack rounded">
                                     <div class="ribbon-B">
                                         <span>Free Pack</span>
                                     </div>
                                     <div class="course-card-thumbnail rounded">
-                                        <a href={`ctqm-pack/${pack2.id}`} target="_blank">
+                                        <a href={`/videocourse/${pack2.id}`} target="_blank">
                                             <img class="rounded-img" src={require(`../img/viewMore/${pack2.packs_name}.jpg`)} alt={pack2.packs_name} title="FullStack Web Development"/>
                                             <span class="prime-icon-trigger"></span>
                                         </a>
@@ -132,7 +132,7 @@ import { useState, useEffect } from 'react';
                                     {/* backend */}
                                     <div class="primepack-card-body">
                                         <h4 class="h48">
-                                            <a href={`ctqm-pack/${pack2.id}`} title="FullStack Web Development">{pack2.packs_name}</a>
+                                            <a href={`/videocourse/${pack2.id}`} title="FullStack Web Development">{pack2.packs_name}</a>
                                         </h4>
                                         <p class="videos-details">
                                             <i class="fa fa-play-circle"></i> &nbsp;{pack2.courses} Courses &nbsp;&nbsp;
@@ -152,7 +152,7 @@ import { useState, useEffect } from 'react';
                 </div>
                 <div class="clear"></div>
                 <div class="prime-viewmore">
-                    <a href="{{url('view-more/free')}}" title="card view" class="btn-viewmore">
+                    <a href='viewmore/free' title="card view" class="btn-viewmore">
                         View More 
                         <i class="ti-angle-right"></i>
                     </a>
