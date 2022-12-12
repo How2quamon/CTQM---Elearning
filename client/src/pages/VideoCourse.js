@@ -202,11 +202,11 @@ const VideoCourse = () => {
                                                     })}
                                                     
                                                     </label>
-                                            <p>{instruc.introduct}</p>
-                                        </div>
-                                    )
-                                })}
-                            </div>
+                                                <p>{instruc.introduct}</p>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
                             <div class={tag === 1 ? "course__content--packs" : "course__content--packs run"}>
                             {syllabus.map((sly) => {
                                 return (
@@ -225,46 +225,41 @@ const VideoCourse = () => {
                                                 </button>
                                             </div>
                                             <div class={show === sly.id ? "packs__list show" : "packs__list"}>
-                                                    {videosItem.map((item) => {
-                                                        if (item.syllabus_id === sly.id)
-                                                        return (
-                                                        <div class="list__items" value={item.id}>
-                                                            <div class="items__wrapper">
-                                                                <div class="items__border">
-                                                                    C
-                                                                </div>    
-
-                                                            </div>
-                                                            <a class="items__label">
-                                                                <div class="label__title">
-                                                                    <span>Video</span>
-
-                                                                    <span>{item.Content}</span>
-                                                                </div>
-                                                                {/* {item.stt == 1 ? 
-                                                                <div class="video" src={require(`../videos/${item.Content}.html`)} muted></div>
-                                                                :
-                                                            } */}
-                                                            <div class="video" src={require(`../videos/tmp.mp4`)}></div>
-                                                            </a>
-                                                            <div class="items__logo">
-                                                                <span>CTQM</span>
-                                                            </div>
+                                                {videosItem.map((item) => {
+                                                    if (item.syllabus_id === sly.id)
+                                                    return (
+                                                    <div class="list__items" value={item.id}>
+                                                        <div class="items__wrapper">
+                                                            <div class="items__border">
+                                                                C
+                                                            </div>    
                                                         </div>
-                                                        )
-                                                    })}
+                                                        <a class="items__label">
+                                                            <div class="label__title">
+                                                                <span>Video</span>
+                                                                <span>{item.Content}</span>
+                                                            </div>
+                                                            {/* {item.stt == 1 ? 
+                                                            <div class="video" src={require(`../videos/${item.Content}.html`)} muted></div>
+                                                            :
+                                                        } */}
+                                                        <div class="video" src={require(`../videos/tmp.mp4`)}></div>
+                                                        </a>
+                                                        <div class="items__logo">
+                                                            <span>CTQM</span>
+                                                        </div>
                                                     </div>
-                                                </div>
-
+                                                    )
+                                                })}
                                             </div>
-                                        )
-                                    })}
-                                </div>
-                                    <div class="popup-video">
-                                        <span id="closeSpan">&times;</span>
-                                        <video src="#" muted autoPlay controls></video>
+                                        </div>
+                                    <div>
                                     </div>
-                                </div>
+                                        <div class="popup-video">
+                                            <span id="closeSpan">&times;</span>
+                                            <video src="#" muted autoPlay controls></video>
+                                        </div>
+                                    </div>
                                 )
                             })}
                             </div>
