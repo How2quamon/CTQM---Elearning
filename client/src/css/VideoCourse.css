@@ -1,4 +1,4 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -6,7 +6,7 @@
 
 html {
     scroll-behavior: smooth;
-    font-family: "Apercu",-apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
+    font-family: "Apercu", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     background-color: #F4F4F8;
 }
 
@@ -18,6 +18,7 @@ h2 {
 #nav {
     padding: 20px 0;
 }
+
 /* -------------------------------------------Content------------------------------------- */
 
 /* -------------------------------------------Banner-------------------------------------- */
@@ -26,7 +27,7 @@ h2 {
     height: 350px;
 }
 
-#content .banner__details{
+#content .banner__details {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -272,7 +273,7 @@ h2 {
 }
 
 #content .items__logo {
-    background-color: #441E1D;    
+    background-color: #441E1D;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -324,11 +325,12 @@ h2 {
         width: 95%;
     }
 }
+
 /* ----------------------------------------------sticky box------------------------------------------- */
 
 
 #content .sticky__infoBox {
-    position: relative;    
+    position: relative;
     width: 400px;
     min-width: 312px;
     max-width: 100%;
@@ -369,7 +371,7 @@ h2 {
     height: 100%;
     width: 100%;
     object-fit: cover;
-    transition: .2s linear;    
+    transition: .2s linear;
 }
 
 #content .course__box--sticky i {
@@ -398,15 +400,17 @@ h2 {
     color: #4F3A41;
 }
 
-#content .course__content--button .run{
+#content .course__content--button .run {
     border-bottom-width: 4px;
     border-color: #ee7655;
-    
+
 }
-@media (max-width: 740px){
+
+@media (max-width: 740px) {
     #content .course__content--button h2 {
         font-size: 25px;
     }
+
     #content .course__content--wrapper {
         padding-top: 115px;
         display: flex;
@@ -414,33 +418,41 @@ h2 {
         padding-right: 21px;
         text-align: justify;
     }
-    #content .course__content--button button   {
-       padding-left: 10px;
+
+    #content .course__content--button button {
+        padding-left: 10px;
     }
+
     #content .sticky__infoBox {
         width: 315px;
-    margin-left: 22px;
+        margin-left: 22px;
     }
+
     #content .course__video {
-        padding: 0 20px ;
+        padding: 0 20px;
     }
+
     #content .course__box--sticky i {
         margin-left: 247px;
     }
-   #content li {
+
+    #content li {
         font-size: 15px;
         margin-left: 16px;
     }
-    #content p{
+
+    #content p {
         font-size: 15px;
     }
+
     /* #content ul {
         font-size: 15px;
     } */
     #content h4 {
         font-size: 18px;
-    
+
     }
+
     #content .course__box--sticky span {
         font-size: 22px;
     }
@@ -451,30 +463,35 @@ h2 {
         padding: 0 13px;
         padding-top: 10px;
     }
+
     #content .label__title {
-       
+
         display: block;
         font-size: 19px;
         white-space: nowrap;
         overflow: hidden;
         max-width: 198px;
         text-overflow: ellipsis;
-       
+
     }
-    #content .header__wrapper { 
+
+    #content .header__wrapper {
         font-size: 15px;
     }
 }
-@media  (max-width:1040px){
+
+@media (max-width:1040px) {
     #content .course__box--sticky {
         padding-top: 132px;
     }
+
     #content .course__content--wrapper {
         padding-top: 115px;
         display: flex;
         flex-direction: column-reverse;
         align-items: center;
     }
+
     #content .label__title {
         display: block;
         /* font-size: 22px; */
@@ -483,4 +500,28 @@ h2 {
         width: 470px;
         text-overflow: ellipsis;
     }
+}
+
+
+.h5,
+h5 {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.mr-1,
+.mx-1 {
+    color: white;
+    font-size: 10px;
+    margin-right: .25rem !important;
+    background-color: rgb(249, 174, 54);
+    padding: 5px;
+    border-radius: 10%;
+    border-color: rgb(249, 174, 54);
+}
+
+.mr-2,
+.mx-2 {
+    display: list-item;
+    margin-left: 1em;
 }
