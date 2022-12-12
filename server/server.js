@@ -55,6 +55,48 @@ app.get('/log-in', (req, res) => {
     });
 });
 
+// Khoá học
+app.get('/pack/:id', (req, res) => {
+    const id = req.params.id;
+    const sqlSelect = "SELECT * From packs_details where id = ?";
+    db.query(sqlSelect, id, (err, result) => {
+        res.send(result);
+    });
+});
+
+app.get('/syllabi/:id', (req, res) => {
+    const id = req.params.id;
+    const sqlSelect = "SELECT * From syllabi where pack_id = ?";
+    db.query(sqlSelect, id, (err, result) => {
+        res.send(result);
+    });
+});
+
+app.get('/packInstruct/:id', (req, res) => {
+    const id = req.params.id;
+    const sqlSelect = "SELECT * From instructors where id = ?";
+    db.query(sqlSelect, id, (err, result) => {
+        res.send(result);
+    });
+});
+
+app.get('/instructRating/:id', (req, res) => {
+    const id = req.params.id;
+    const sqlSelect = "SELECT AVG(star) as avg_star From instructor_ratings where instructor_id = ?";
+    db.query(sqlSelect, id, (err, result) => {
+        res.send(result);
+    });
+});
+
+app.get('/packRating/:id', (req, res) => {
+    const id = req.params.id;
+    const sqlSelect = "SELECT AVG(star) as avg_star From ratings where pack_id = ?";
+    db.query(sqlSelect, id, (err, result) => {
+        res.send(result);
+    });
+});
+
+// Thêm
 // app.get('/', (req, res) => {
 //     const sqlInsert = "INSERT INTO courses (name) VALUE ('Rom la Dun Dun');";
 //     db.query(sqlInsert, (err, result) => {
@@ -62,6 +104,7 @@ app.get('/log-in', (req, res) => {
 //     });
 // });
 
+// Lấy
 // app.get('/api/get', (req, res) =>{
 //     const sqlSelect = "SELECT * FROM courses"
 //     db.query(sqlSelect, (err, result) => {
@@ -69,8 +112,8 @@ app.get('/log-in', (req, res) => {
 //     })
 // })
 
+// thêm 
 // app.post("/api/insert", (req, res) => {
-
 //     const name = req.body.name;
 //     const id = req.body.id;
 //     const sqlInsert = "INSERT INTO courses (name) VALUE (?)"
@@ -79,6 +122,7 @@ app.get('/log-in', (req, res) => {
 //     })
 // });
 
+// Xoá
 // app.delete("/api/delete/:id", (req, res) => {
 //     const name = req.params.id;
 //     const sqlDelete = "DELETE From courses where id = ?";
@@ -87,6 +131,7 @@ app.get('/log-in', (req, res) => {
 //     });
 // })
 
+// Sửa
 // app.put("/api/update/:id", (req, res) => {
 //     const id = req.params.id;
 //     const name = req.body.name;
