@@ -297,7 +297,7 @@ h2 {
     display: none;
 }
 
-#content .popup-video iframe {
+#content .popup-video video {
     position: absolute;
     top: 50%;
     left: 50%;

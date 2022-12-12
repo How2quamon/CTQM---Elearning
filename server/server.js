@@ -93,6 +93,17 @@ app.get('/syllabi/:id', (req, res) => {
     });
 });
 
+app.get('/videosItem/:first/:last', (req, res) => {
+    const first = req.params.first;
+    const last = req.params.last;
+    const sqlSelect = "SELECT * FROM video_items WHERE syllabus_id >= ? AND syllabus_id <= ?;";
+    db.query(sqlSelect, [first, last], (err, result) => {
+        if(err) console.log(err);
+        else res.send(result);
+    });
+});
+
+
 app.get('/packInstruct/:id', (req, res) => {
     const id = req.params.id;
     const sqlSelect = "SELECT * From instructors where id = ?";
