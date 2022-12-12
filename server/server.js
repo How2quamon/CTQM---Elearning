@@ -55,6 +55,27 @@ app.get('/log-in', (req, res) => {
     });
 });
 
+// Đăng ký
+// app.get('/register', (req, res) =>{
+//     const sqlSelect = "SELECT * FROM users";
+//     db.query(sqlSelect, (err, result) =>{
+//         res.send(result);
+//     })
+// })
+
+// Đăng kí tài khoản
+app.post('/register', (req, res) => {
+    // const Id = 9
+    const fullName = req.body.fullName
+    const userName = req.body.userName
+    const password = req.body.password
+    const sqlInsert =
+        "INSERT INTO users ( user_name, nick_name, password, cash, score) VALUES (?,?,?,'0','0')";
+    db.query(sqlInsert, [fullName, userName, password], (err, result) => {
+        console.log(result);
+    });
+})
+
 // Khoá học
 app.get('/pack/:id', (req, res) => {
     const id = req.params.id;
