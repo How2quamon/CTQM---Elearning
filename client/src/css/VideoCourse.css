@@ -9,6 +9,11 @@ html {
     font-family: "Apercu",-apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
     background-color: #F4F4F8;
 }
+
+h2 {
+    letter-spacing: normal;
+}
+
 /* -------------------------------------------Nav----------------------------------------- */
 #nav {
     padding: 20px 0;
@@ -378,7 +383,7 @@ html {
 }
 
 #content .course__box--sticky .pause {
-    display: none;
+    /* display: none; */
 }
 
 #content .infoBox__text .logo {
