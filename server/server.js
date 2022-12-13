@@ -4,6 +4,7 @@ const app = express();
 const cors = require('cors')
 const mysql = require("mysql");
 
+// Kết nối CSDL
 const db = mysql.createPool({
     host: 'localhost',
     user: 'root',
@@ -98,7 +99,7 @@ app.get('/videosItem/:first/:last', (req, res) => {
     const last = req.params.last;
     const sqlSelect = "SELECT * FROM video_items WHERE syllabus_id >= ? AND syllabus_id <= ?;";
     db.query(sqlSelect, [first, last], (err, result) => {
-        if(err) console.log(err);
+        if (err) console.log(err);
         else res.send(result);
     });
 });
@@ -135,7 +136,7 @@ app.post('/newComment/:id', (req, res) => {
     const content = req.body.content;
     const sqlInsert = "INSERT INTO comments (pack_id, user_id, nick_name, content, vote) VALUES (?, '1', 'thejohan', ?, '0' );";
     db.query(sqlInsert, [pack_id, content], (err, result) => {
-        if(err) console.log(err);
+        if (err) console.log(err);
         else console.log(result);
     });
 });
@@ -152,7 +153,7 @@ app.delete('/cmtdelete/:id', (req, res) => {
     const id = req.params.id;
     const sqlDelete = "DELETE FROM comments WHERE id = ?";
     db.query(sqlDelete, id, (err, result) => {
-        if(err) console.log(err);
+        if (err) console.log(err);
         else console.log(result);
     })
 })
@@ -162,9 +163,28 @@ app.put("/updateVote", (req, res) => {
     const vote = req.body.vote;
     const sqlUpdate = "UPDATE comments SET vote = ? WHERE id = ?;";
     db.query(sqlUpdate, [vote, id], (err, result) => {
-        if(err) console.log(err);
+        if (err) console.log(err);
         else console.log(result);
     });
+})
+
+// Dữ liệu giảng viên (Instructor)
+app.get('/getInstructor/:id', (req, res) => {
+    const id = req.params.id;
+    const sqlSelect =
+        "SELECT * FROM instructors WHERE id = ?;";
+    db.query(sqlSelect, id, (err, result) => {
+        res.send(result)
+    })
+})
+// Dữ liệu Courses
+app.get('/getCourses/:instructor_id', (req, res) => {
+    const instructor_id = req.params.instructor_id;
+    const sqlSelect =
+        " SELECT * FROM packs_details WHERE instructor_id = ?;";
+    db.query(sqlSelect, instructor_id, (err, result) => {
+        res.send(result)
+    })
 })
 
 // Sửa
