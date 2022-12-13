@@ -7,48 +7,7 @@ import '../css/star.css';
 
 const VideoCourse = () => {
 
-    // Comment Data
-    const [content, setContent] = useState("");
-    const [commentList, setCommentList] = useState([])
-    const [newContent, setNewContent] = useState("")
-
-    // Thêm bình luận
-    const submitComment = () => {
-        if (content.trim().length !== 0) {
-            Axios.post(`http://localhost:3001/videocourse/6/comment`, { content: content })
-        }
-    };
-
-    // Vote cho bình luận
-    const submitVote = () => {
-        
-    }
-
-
-    // Xóa bình luận
-    const deleteComment = (id) => {
-        Axios.delete(`http://localhost:3001/videocourse/6/delete/${id}`);
-    };
-
-
-    // Hiển thị bình luận
-    useEffect(() => {
-        Axios.get(`http://localhost:3001/videocourse/6`).then((response) => {
-            setCommentList(response.data);
-        })
-    }, [])
-
-    // Cập nhật bình luận
-    // const updateComment = (id) => {
-    //     Axios.put(`http://localhost:3001/videocourse/6/update`, {
-    //         id: id,
-    //         content: content
-    //     });
-    // };
-
-
-
-    // Data
+    // Pack Data
     const [pack, setPack] = useState([]);
     const [instructor, setInstructor] = useState([]);
     const [syllabus, setSyllabus] = useState([]);
@@ -60,6 +19,14 @@ const VideoCourse = () => {
     const [firstSyllabus, setFirstSyllabus] = useState(0);
     const [syllabusLength, setSyllabusLength] = useState(0);
 
+    // Comment Data
+    const [content, setContent] = useState("");
+    const [commentList, setCommentList] = useState([])
+    const [usercmt, setUserCmt] = useState("")
+    const [commentId, setCommentId] = useState(0);
+    const [vote, setVote] = useState(0);
+    const [voteId, setVoteId] = useState(0);
+    const [action, setAction] = useState(0);
 
     // event
     const [tag, setTag] = useState(0);
@@ -90,6 +57,40 @@ const VideoCourse = () => {
         }
     }
     
+    // Thêm bình luận
+    const submitComment = () => {
+        setAction(action + 1);
+        console.log(action);
+        if (content.trim().length !== 0) {
+            Axios.post(`http://localhost:3001/newComment/${packId}`, { content: content });
+        }
+    };
+
+    // Vote cho bình luận
+    const submitVote = (id, value) => {
+        setAction(action + 1);
+        console.log(action);
+        setVoteId(id);
+        setVote(value);
+        Axios.put(`http://localhost:3001/updateVote`, { id: voteId, vote: vote });
+    }
+
+
+    // Xóa bình luận
+    const deleteComment = (id) => {
+        setAction(action + 1);
+        console.log(action);
+        setCommentId(id);
+        Axios.delete(`http://localhost:3001/cmtdelete/${commentId}`);
+    };
+
+    useEffect(() => {
+        console.log("reload");
+        Axios.get(`http://localhost:3001/getCmt/${packId}`).then((response) => {
+            setCommentList(response.data);
+        })
+    }, [action])
+    
     useEffect(() => {
         // API
         Axios.get(`http://localhost:3001/pack/${packId}`).then((response) => {
@@ -110,6 +111,9 @@ const VideoCourse = () => {
             setFirstSyllabus(response.data[0].id);
             setSyllabusLength(syllabus.length + firstSyllabus);
         });
+        Axios.get(`http://localhost:3001/getCmt/${packId}`).then((response) => {
+            setCommentList(response.data);
+        })
     }, [instructorId]);
     // popup video
     var popup = document.querySelectorAll('#content .list__items');
@@ -187,9 +191,9 @@ const VideoCourse = () => {
                                             <div key={instruc.id}>
                                                 <h4>Instructor</h4>
                                                 <h5><a href="{{url('/instructor')}}/{{$instructor->id}}">{instruc.user_name}</a></h5>
-                                                <label class="rating-label"> <strong>Average rating is  <code>readonly</code></strong>
                                                     {instructorRating.map((insStar) => {
                                                         return (
+                                                            <label class="rating-label"> <strong>Average rating is {insStar.avg_star} <code>readonly</code></strong>
                                                             <input
                                                                 class="rating"
                                                                 max="5"
@@ -198,10 +202,10 @@ const VideoCourse = () => {
                                                                 style={{ ['--fill']: 'rgb(159, 87, 87)', ['--value']: `${insStar.avg_star}` }}
                                                                 type="range"
                                                                 value={`${insStar.avg_star}`} />
+                                                            </label>
                                                         )
                                                     })}
                                                     
-                                                    </label>
                                                 <p>{instruc.introduct}</p>
                                             </div>
                                         )
@@ -282,9 +286,9 @@ const VideoCourse = () => {
                                         <span>{info.time_cpl}</span>
                                     </p>
                                     <p class="infoBox__text">
-                                        <label class="rating-label"><strong>Average rating is  <code>readonly</code></strong>
                                         {packRating.map((packStar) => {
                                             return (
+                                                <label class="rating-label"><strong>Average rating is {packStar.avg_star} <code>readonly</code></strong>
                                                 <input
                                                 class="rating"
                                                 max="5"
@@ -294,9 +298,9 @@ const VideoCourse = () => {
                                                 type="range"
                                                 value={`${packStar.avg_star}`}
                                                 /> 
+                                                </label>
                                             )
                                         })}
-                                        </label>
                                     </p>
                                     <p class="infoBox__text">
                                         <span>Prerequisites</span>
@@ -407,13 +411,13 @@ const VideoCourse = () => {
                                                             </div>
                                                             <div class="reply-section">
                                                                 <div class="d-flex flex-row align-items-center voting-icons">
-                                                                    <a class="fa fa-sort-up fa-2x mt-3 hit-voting" href=""></a> {/* {{url('/increase-vote')}}/{{$cmt->id}} */}
-                                                                    <a class="fa fa-sort-down fa-2x mb-3 hit-voting" href=""></a> {/* {{url('/decrease-vote')}}/{{$cmt->id}} */}
+                                                                    <a class="fa fa-sort-up fa-2x mt-3 hit-voting" onClick={() => {submitVote(val.id, val.vote + 1)}}></a> {/* {{url('/increase-vote')}}/{{$cmt->id}} */}
+                                                                    <a class="fa fa-sort-down fa-2x mb-3 hit-voting" onClick={() => {submitVote(val.id, val.vote - 1)}}></a> {/* {{url('/decrease-vote')}}/{{$cmt->id}} */}
                                                                     <span class="ml-2">
                                                                         {val.vote}
                                                                     </span><span class="dot ml-2"></span>
                                                                     {/* @if ($cmt->nick_name == session('username')) */}
-                                                                    <button class="ml-2 mt-1 bdge mr-1" onClick={() => { deleteComment(val.id) }}>Delete</button> {/* {{url('/delete-comment')}}/{{$cmt->id}} */}
+                                                                    <button class="ml-2 mt-1 bdge mr-1" onClick={() => {deleteComment(val.id)}}>Delete</button> {/* {{url('/delete-comment')}}/{{$cmt->id}} */}
                                                                     {/* @endif */}
                                                                 </div>
                                                             </div>
