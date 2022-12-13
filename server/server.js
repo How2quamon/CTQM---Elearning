@@ -47,8 +47,7 @@ app.get('/viewmore/free', (req, res) => {
 });
 
 // Đăng nhập
-
-app.get('/log-in', (req, res) => {
+app.get('/users', (req, res) => {
     const sqlSelect = "SELECT * FROM users";
     db.query(sqlSelect, (err, result) => {
         res.send(result);
@@ -125,6 +124,49 @@ app.get('/packRating/:id', (req, res) => {
     const sqlSelect = "SELECT AVG(star) as avg_star From ratings where pack_id = ?";
     db.query(sqlSelect, id, (err, result) => {
         res.send(result);
+    });
+});
+// Lấy gói tương ứng của người dùng
+app.get('/userPack/:Uid/:Pid', (req, res) => {
+    const user_id = req.params.Uid;
+    const pack_id = req.params.Pid;
+    const sqlSelect = "SELECT * From user_packs where user_id = ? and pack_id = ?";
+    db.query(sqlSelect, [user_id, pack_id], (err, result) => {
+        res.send(result);
+    });
+});
+// Đăng ký khoá học mới
+app.post('/newPack/:Uid/:Pid', (req, res) => {
+    const user_id = req.params.Uid
+    const pack_id = req.params.Pid;
+    const packname = req.body.pack_name;
+    const price = req.body.price;
+    const sqlInsert = "INSERT INTO user_packs (user_id, pack_id, pack_name, process, at, price) VALUES (?, ?, ?, 1, 0, ?);";
+    db.query(sqlInsert, [user_id, pack_id, packname, price], (err, result) => {
+        if(err) console.log(err);
+        else console.log(result);
+    });
+});
+
+// Đánh giá
+// Lấy đánh giá
+app.get('/getRating/:Uid/:Pid', (req, res) => {
+    const user_id = req.params.Uid;
+    const pack_id = req.params.Pid
+    const sqlSelect = "SELECT * From ratings where user_id = ? and pack_id = ?";
+    db.query(sqlSelect, [user_id, pack_id], (err, result) => {
+        res.send(result);
+    });
+});
+// Thêm
+app.post('/newRating/', (req, res) => {
+    const user_id = req.body.user_id
+    const pack_id = req.body.pack_id;
+    const star = req.body.star;
+    const sqlInsert = "INSERT INTO ratings (user_id, pack_id, star) VALUES (?, ?, ?);";
+    db.query(sqlInsert, [user_id, pack_id, star], (err, result) => {
+        if(err) console.log(err);
+        else console.log(result);
     });
 });
 

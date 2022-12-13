@@ -166,11 +166,11 @@ a:hover {
     font-size: 0.875rem;
 
 }
-.Log-in form {
+.Log-in div {
     width:328px;
 }
-form input[type="username"],
-form input[type="password"] {
+ input[type="username"],
+ input[type="password"] {
     display: block;
     width:100%;
     box-sizing: border-box;

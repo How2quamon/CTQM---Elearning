@@ -1,12 +1,20 @@
-import React, {Component} from "react";
+import React, {Component, useContext} from "react";
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import * as GiIcons from 'react-icons/gi';
 import * as HiIcons from 'react-icons/hi';
 import * as BsIcons from 'react-icons/bs';
 import "./Navbar.css";
+import { UserContext } from '../Context/UserContext';
 
 const Navbar = () => {
+    const {userLogin, setUserLogin, addNewUser, logOutUser} = useContext(UserContext);
+
+    const Logout = () => {
+        logOutUser();
+        window.open('/', "_self");
+    }
+
     return(
         <nav className="navbar navbar-expand-lg">
             <a href={`/`} className="navbar-brand"><b>C</b>TQM</a>
@@ -22,7 +30,7 @@ const Navbar = () => {
                             <a href={`/videocourse/2`} class="dropdown-item">MySQL</a>
                             <a href={`/videocourse/3`} class="dropdown-item">Complete Python</a>
                             <a href={`/videocourse/4`} class="dropdown-item">Java</a>
-                            <a href={`viewmore/prime`} class="dropdown-item">View more...</a>
+                            <a href={`/viewmore/prime`} class="dropdown-item">View more...</a>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
@@ -32,7 +40,7 @@ const Navbar = () => {
                             <a href={`/videocourse/7`} class="dropdown-item">Machine Learning</a>
                             <a href={`/videocourse/8`} class="dropdown-item">Programming Tutorials</a>
                             <a href={`/videocourse/9`} class="dropdown-item">Web Design</a>
-                            <a href={`viewmore/free`} class="dropdown-item">View more...</a>
+                            <a href={`/viewmore/free`} class="dropdown-item">View more...</a>
                         </div>
                     </div>			
                     <a href="#" class="nav-item nav-link">Contact Us</a>
@@ -45,17 +53,21 @@ const Navbar = () => {
                         </div>
                     </form>
                     </div>
-                <div class="navbar-nav action-buttons ml-auto">
-                        <a href="#" target="_self" class="btn btn-login"> Login</a>
-                        <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle mr-3"><AiIcons.AiFillCaretDown/></a>
-                        <div class="dropdown-menu">					
-                            <a href="#" class="dropdown-item">Update Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
-                            <form>
-                                <button type="submit" class="btn btn-link btn-logout"><BsIcons.BsBoxArrowRight/> Logout</button>
-                            </form>
+                {userLogin != null ?  
+                    <div class="navbar-nav action-buttons ml-auto">
+                        <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle mr-3"><i class="fa-solid fa-user-circle-o"></i> {userLogin.userName} <AiIcons.AiFillCaretDown/></a>
+                        <div class="dropdown-menu">
+                            <a href={`/profile`} class="dropdown-item" target="_self">Update Profile</a>
+                            <div>
+                                <button onClick={Logout} class="btn btn-link btn-logout"><BsIcons.BsBoxArrowRight/> Logout</button>
+                            </div>
                         </div>
-                </div>
+                    </div>
+                    :
+                    <div class="navbar-nav action-buttons ml-auto">
+                        <a href={`/log-in`} target="_self" class="btn btn-login"> Login</a>
+                    </div>
+                }
             </div>
         </nav>
     )
