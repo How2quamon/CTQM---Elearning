@@ -15,8 +15,8 @@ const Footer = () => {
                     <div class="row">
                         <div class="col-md-6 col-md-3">
                             <h3>CTQM Group</h3>
-                            <p>Class code: 2121COMP130305</p>
-                            <p>Instructor: Mr Le Hoang Viet Tuan</p>
+                            <p>Class code: COMP103101 – CÔNG NGHỆ WEB</p>
+                            <p>Instructor: Mr Lương Tran Hy Hien (HIENLTH)</p>
                         </div>
                         <div class="col-sm-4">
                             <h3> Reference Links</h3>
@@ -44,10 +44,10 @@ const Footer = () => {
                         <div class="social">
                         <h3>About us</h3>
                             <a href="https://johantt.github.io/First-CV/" target="_blank"><img src="#" id="profile"/></a>
-                            <a href="https://dophuc0111001.github.io/dophuc_cv/" target="_blank"><img src="#" id="profile"/></a>
                             <a href="https://fontaine07.github.io/cv-midterm/" target="_blank"><img src="#" id="profile"/></a>
                             <a href="https://leanhtri2908.github.io/CV-C-Nh-n/?fbclid=IwAR31BWbju8QpSDBtVfNBwH9ac1GCp0ofEx7s54GHhYaPzoaKhZMP9586B5Q" target="_blank"><img src="#" id="profile"/></a>
-                            <a href="#" target="_blank"><img src="#" id="profile"/></a>
+                            <a href="https://nghia2510.github.io/CV.Nghia-sama.1.0/" target="_blank"><img src="{{url('smallnav')}}/img/Nghia.jpg" alt="" id="profile"/></a>
+                            <a href="https://nttl-3010.github.io/CV-TL/" target="_blank"><img src="{{url('smallnav')}}/img/Linh.png" alt="" id="profile"/></a>
                             <a href="https://nguyenducnh142.github.io/cv/CV.html?fbclid=IwAR0thWx4I01OOfxBVA01mRmO6ojivRAhqBM_w6zBs1L3Q_28CWnYxBzoHGo" target="_blank"><img src="#" id="profile"/></a>
                         </div>
                     </div>

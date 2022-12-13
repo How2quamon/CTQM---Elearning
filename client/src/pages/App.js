@@ -6,6 +6,7 @@ import DangKi from './DangKi';
 import ViewMore from './ViewMore';
 import VideoCourse from './VideoCourse';
 import Instructor from './Instructor.js';
+import Profile from './Profile';
 import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
 
@@ -25,6 +26,7 @@ function App() {
           <Route exact path='/register' element={ <DangKi /> } />
 
           {/* Hồ sơ */}
+          <Route exact path='/profile' element={ <Profile /> } />
 
           {/* Instructor */}
           <Route exact path='/instructor' element={ <Instructor /> } />
