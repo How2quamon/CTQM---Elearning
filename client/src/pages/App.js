@@ -29,7 +29,7 @@ function App() {
             <Route exact path='/profile' element={ <Profile /> } />
 
             {/* Instructor */}
-            <Route exact path='/instructor' element={ <Instructor /> } />
+            <Route exact path='/instructor/:id' element={ <Instructor /> } />
 
             {/* Xem khoá học */}
             <Route exact path='/viewmore/:type' element={ <ViewMore/> } />

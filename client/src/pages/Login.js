@@ -16,8 +16,7 @@ const Login = () => {
                 if (userList[i].nick_name.trim() == username && userList[i].password.trim() == password) {
                     setFail(false);
                     addNewUser(userList[i].id, userList[i].nick_name, userList[i].password, userList[i].cash);
-                    window.open('/', "_self");
-                    break;
+                    return window.open('/', "_self");
                 }
             }
             setFail(true);

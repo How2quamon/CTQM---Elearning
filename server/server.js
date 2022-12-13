@@ -10,6 +10,7 @@ const db = mysql.createPool({
     user: 'root',
     password: '',
     database: 'ctqm',
+    multipleStatements: true
 });
 
 app.use(cors())
@@ -228,6 +229,58 @@ app.get('/getCourses/:instructor_id', (req, res) => {
         res.send(result)
     })
 })
+// Đánh giá giảng viên
+app.post('/newInsRating/', (req, res) => {
+    const user_id = req.body.user_id
+    const ins_id = req.body.ins_id;
+    const star = req.body.star;
+    const sqlInsert = "INSERT INTO instructor_ratings (instructor_id, user_id, star) VALUES (?, ?, ?);";
+    db.query(sqlInsert, [ins_id, user_id, star], (err, result) => {
+        if(err) console.log(err);
+        else console.log(result);
+    });
+});
+
+// Lấy hồ sơ người dùng
+app.get('/getUser/:id', (req, res) => {
+    const id = req.params.id;
+    const sqlSelect =
+        "SELECT * FROM users WHERE id = ?";
+    db.query(sqlSelect, id, (err, result) => {
+        res.send(result)
+    })
+})
+// Dữ liệu Courses của người dùng
+app.get('/getUserCourses/:id', (req, res) => {
+    const user_id = req.params.id;
+    const sqlSelect =
+        " SELECT * FROM user_packs WHERE user_id = ?;";
+    db.query(sqlSelect, user_id, (err, result) => {
+        res.send(result)
+    })
+})
+// Kiểm tra người dùng đã mua hay chưa
+app.get('/checkPack/:Uid/:Iid', (req, res) => {
+    const user_id = req.params.Uid;
+    const ins_id = req.params.Iid;
+    const sqlSelect1 =
+        " SELECT * FROM pack_detail WHERE instructor_id = ?";
+    const sqlSelect2 = 
+        " SELECT * FROM user_packs WHERE user_id = ?";
+    db.query('SELECT * FROM packs_details WHERE instructor_id = ?; SELECT * FROM user_packs WHERE user_id = ?', [ins_id, user_id], (err, result) => {
+        if(err) console.log(err);
+        else console.log(result);
+    })
+})
+// Lấy đánh giá của người dùng với giảng viên
+app.get('/getInsRating/:Uid/:Iid', (req, res) => {
+    const user_id = req.params.Uid;
+    const ins_id = req.params.Iid
+    const sqlSelect = "SELECT * From instructor_ratings where user_id = ? and instructor_id = ?";
+    db.query(sqlSelect, [user_id, ins_id], (err, result) => {
+        res.send(result);
+    });
+});
 
 // Sửa
 // app.put('/videocourse/6/update/:id', (req, res)=> {
