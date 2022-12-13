@@ -525,3 +525,22 @@ h5 {
     display: list-item;
     margin-left: 1em;
 }
+
+.hit-voting {
+    cursor: pointer;
+    font-size: 60px !important;
+    transition: 0.3s;
+    padding: 10px;
+    text-decoration: none !important;
+}
+
+.bdge {
+    height: 21px;
+    background-color: orange;
+    color: #fff !important;
+    font-size: 11px;
+    padding: 8px;
+    border-radius: 4px;
+    line-height: 3px;
+    text-decoration: none !important;
+}

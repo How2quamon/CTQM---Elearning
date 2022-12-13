@@ -155,6 +155,16 @@ app.delete('/videocourse/6/delete/:id', (req, res) => {
     })
 })
 
+app.put("/videocourse/update/:id", (req, res) => {
+    const id = req.params.id;
+    const name = req.body.name;
+    const sqlUpdate = "Update courses set name = ? where id = ?";
+    db.query(sqlUpdate, [name, id], (err, result) => {
+        if(err) console.log(err);
+        else console.log(result);
+    });
+})
+
 // Sửa
 // app.put('/videocourse/6/update/:id', (req, res)=> {
 //     const id = req.params.id;

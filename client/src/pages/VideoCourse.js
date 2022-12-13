@@ -21,7 +21,7 @@ const VideoCourse = () => {
 
     // Vote cho bình luận
     const submitVote = () => {
-
+        
     }
 
 
@@ -367,9 +367,9 @@ const VideoCourse = () => {
                                                 <div class="profile-image"></div>
                                                 <div class="d-flex flex-column ml-3">
                                                     <div class="d-flex flex-row post-title">
-                                                        <h5><a href="">THE FULL STACK WEB DEVELOPMENT</a></h5> {/* {{$pack->packs_name}} */}
+                                                        <h5>{info.packs_name}</h5>
                                                     </div>
-                                                    <div class="d-flex flex-row align-items-center align-content-center post-title"><span class="bdge mr-1">CTQM</span><span class="mr-2 comments"> comments&nbsp;</span><span class="mr-2 dot"></span></div>
+                                                    <div class="d-flex flex-row align-items-center align-content-center post-title"><span class="bdge mr-1">CTQM</span><span class="comments">{commentList.length} comments&nbsp;</span><span class="dot"></span></div>
                                                 </div>
                                             </div>
                                             <div class="coment-bottom bg-white p-2 px-4">
@@ -398,8 +398,7 @@ const VideoCourse = () => {
                                                     return (
                                                         <div class="commented-section mt-2">
                                                             <div class="d-flex flex-row align-items-center commented-user">
-                                                                <h5 class="mr-2">{val.nick_name}</h5><span class="dot mb-1"></span>
-
+                                                                <h5>{val.nick_name}</h5><span class="dot mb-1"></span>
                                                                 {/* <button class="ml-2 mt-1">Edit</button> */}
                                                             </div>
                                                             <div class="comment-text-sm"><span>

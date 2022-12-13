@@ -5,6 +5,7 @@ import Login from './Login';
 import DangKi from './DangKi';
 import ViewMore from './ViewMore';
 import VideoCourse from './VideoCourse';
+import Instructor from './Instructor';
 import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
 
@@ -26,6 +27,7 @@ function App() {
           {/* Hồ sơ */}
 
           {/* Instructor */}
+          <Route exact path='/instructor/:id' element={ <Instructor /> } />
 
           {/* Xem khoá học */}
           <Route exact path='/viewmore/:type' element={ <ViewMore/> } />
