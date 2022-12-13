@@ -219,7 +219,7 @@ const VideoCourse = () => {
                 document.querySelector('.popup-video video').pause();
             }
         }
-    }, [instructorRating]);
+    }, [instructorId]);
     
     var getStar = document.querySelectorAll('input[name="rating"]');
     getStar.forEach(starr => {
@@ -284,7 +284,7 @@ const VideoCourse = () => {
                                         return (
                                             <div key={instruc.id}>
                                                 <h4>Instructor</h4>
-                                                <h5><a href="{{url('/instructor')}}/{{$instructor->id}}">{instruc.user_name}</a></h5>
+                                                <h5><a href={`/instructor/${instruc.id}`}>{instruc.user_name}</a></h5>
                                                     {instructorRating.map((insStar) => {
                                                         return (
                                                             <label class="rating-label"> <strong>Average rating is {insStar.avg_star} <code>readonly</code></strong>

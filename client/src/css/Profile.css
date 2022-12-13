@@ -1,13 +1,8 @@
 
-* {
-	margin: 0;
-	padding: 0;
-}
-
-body {
-  background: #f4f4f4;
-
-}
+ .row {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
 
 /* Profile container */
 .profile {
@@ -26,8 +21,8 @@ body {
   margin: 0 auto;
   width: 50%;
   height: 50%;
-  -webkit-border-radius: 50% !important;
-  -moz-border-radius: 50% !important;
+  /* -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50% !important; */
   border-radius: 50% !important;
 }
 
@@ -74,14 +69,16 @@ body {
 
 .profile-usermenu ul li a {
   color: #93a3b5;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 400;
+  
+  line-height: 27px;
 }
 
-/* .profile-usermenu ul li a i {
-  margin-right: 8px;
-  font-size: 14px;
-} */
+.profile-usermenu ul li span {
+  margin-right: 5px;
+  line-height: 28px;
+}
 
 .profile-usermenu ul li a:hover {
   background-color: #fafcfd;
@@ -391,10 +388,3 @@ a, button, code, div, img, input, label, li, p, pre, select, span, svg, table, t
     margin-right: 5px;
 }
 
-#editProfile {
-    z-index: -1;
-}
-
-#payment {
-    z-index: -1;
-}
