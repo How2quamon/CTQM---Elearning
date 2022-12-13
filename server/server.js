@@ -130,15 +130,17 @@ app.get('/packRating/:id', (req, res) => {
 
 // Bình luận
 // Thêm
-app.post('/videocourse/6/comment', (req, res) => {
+app.post('/newComment/:id', (req, res) => {
+    const pack_id = req.params.id;
     const content = req.body.content;
-    const sqlInsert = "INSERT INTO comments (pack_id, user_id, nick_name, content, vote) VALUES ('6', '1', 'thejohan', ?, '1' );";
-    db.query(sqlInsert, content, (err, result) => {
-        if (err) console.log(err);
+    const sqlInsert = "INSERT INTO comments (pack_id, user_id, nick_name, content, vote) VALUES (?, '1', 'thejohan', ?, '0' );";
+    db.query(sqlInsert, [pack_id, content], (err, result) => {
+        if(err) console.log(err);
+        else console.log(result);
     });
 });
 // Xem
-app.get('/videocourse/:id', (req, res) => {
+app.get('/getCmt/:id', (req, res) => {
     const id = req.params.id;
     const sqlSelect = "SELECT * FROM comments WHERE pack_id = ?";
     db.query(sqlSelect, id, (err, result) => {
@@ -146,20 +148,20 @@ app.get('/videocourse/:id', (req, res) => {
     })
 })
 // Xóa
-app.delete('/videocourse/6/delete/:id', (req, res) => {
-    // const pack_id= req.params.pack_id;
+app.delete('/cmtdelete/:id', (req, res) => {
     const id = req.params.id;
     const sqlDelete = "DELETE FROM comments WHERE id = ?";
     db.query(sqlDelete, id, (err, result) => {
-        if (err) console.log(err);
+        if(err) console.log(err);
+        else console.log(result);
     })
 })
-
-app.put("/videocourse/update/:id", (req, res) => {
-    const id = req.params.id;
-    const name = req.body.name;
-    const sqlUpdate = "Update courses set name = ? where id = ?";
-    db.query(sqlUpdate, [name, id], (err, result) => {
+// Sửa vote
+app.put("/updateVote", (req, res) => {
+    const id = req.body.id;
+    const vote = req.body.vote;
+    const sqlUpdate = "UPDATE comments SET vote = ? WHERE id = ?;";
+    db.query(sqlUpdate, [vote, id], (err, result) => {
         if(err) console.log(err);
         else console.log(result);
     });
