@@ -1,11 +1,13 @@
 import React from "react";
 import Axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import '../css/VideoCourse.css';
 import '../css/star.css';
+import { UserContext } from '../components/Context/UserContext';
 
 
 const VideoCourse = () => {
+    const {userLogin, setUserLogin} = useContext(UserContext);
 
     // Pack Data
     const [pack, setPack] = useState([]);
@@ -18,15 +20,22 @@ const VideoCourse = () => {
     const [packRating, setPackRating] = useState(0);
     const [firstSyllabus, setFirstSyllabus] = useState(0);
     const [syllabusLength, setSyllabusLength] = useState(0);
+    const [commentList, setCommentList] = useState([])
+    const [currStar, setCurrStar] = useState(0);
+    const [userPack, setUserPack] = useState([]);
+    const [userPackId, setUserPackId] = useState(0);
 
     // Comment Data
     const [content, setContent] = useState("");
-    const [commentList, setCommentList] = useState([])
     const [usercmt, setUserCmt] = useState("")
     const [commentId, setCommentId] = useState(0);
     const [vote, setVote] = useState(0);
     const [voteId, setVoteId] = useState(0);
     const [action, setAction] = useState(0);
+    const [cmtStatus, setCmtStatus] = useState(0);
+    const [ratingStatus, setRatingStatus] = useState(0);
+    const [star, setStar] = useState(0);
+    const [buyStatus, setBuyStatus] = useState(0);
 
     // event
     const [tag, setTag] = useState(0);
@@ -59,30 +68,87 @@ const VideoCourse = () => {
     
     // Thêm bình luận
     const submitComment = () => {
-        setAction(action + 1);
-        console.log(action);
-        if (content.trim().length !== 0) {
-            Axios.post(`http://localhost:3001/newComment/${packId}`, { content: content });
+        try 
+        {
+            if (userLogin != null && userPackId != -1) {
+                setAction(action + 1);
+                console.log(action);
+                if (content.trim().length !== 0) {
+                    Axios.post(`http://localhost:3001/newComment/${packId}`, { content: content });
+                    setCmtStatus(2);
+                }
+            }
+            else setCmtStatus(1);
+        }
+        catch 
+        {
+            setCmtStatus(1);
         }
     };
 
     // Vote cho bình luận
     const submitVote = (id, value) => {
-        setAction(action + 1);
-        console.log(action);
-        setVoteId(id);
-        setVote(value);
-        Axios.put(`http://localhost:3001/updateVote`, { id: voteId, vote: vote });
+        try {
+            if (userLogin != null && userPackId != -1) {
+                setAction(action + 1);
+                setVoteId(id);
+                setVote(value);
+                Axios.put(`http://localhost:3001/updateVote`, { id: voteId, vote: vote });
+                setCmtStatus(2);
+            } 
+            else setCmtStatus(1);
+        }
+        catch
+        {
+            setCmtStatus(1);
+        }
     }
-
 
     // Xóa bình luận
     const deleteComment = (id) => {
-        setAction(action + 1);
-        console.log(action);
-        setCommentId(id);
-        Axios.delete(`http://localhost:3001/cmtdelete/${commentId}`);
+        try {
+            if (userLogin != null && userPackId != -1) {
+                setAction(action + 1);
+                setCommentId(id);
+                Axios.delete(`http://localhost:3001/cmtdelete/${commentId}`);
+                setCmtStatus(2);
+            }
+            else setCmtStatus(1);
+        }
+        catch {
+            setCmtStatus(1);
+        }
     };
+
+    const newRating = () => {
+        try 
+        {
+            if (userLogin != null && userPackId != -1) {
+                Axios.post(`http://localhost:3001/newRating`, { user_id: userLogin.id, pack_id: packId, star: star});
+                setRatingStatus(2);
+                window.location.reload();
+            }
+            else setRatingStatus(1);
+        }
+        catch 
+        {
+            setRatingStatus(1);
+        }
+    }
+
+    const getPack = (packname, price) => {
+        try {
+            if (userLogin != null && userLogin.cash >= price) {
+                Axios.post(`http://localhost:3001/newPack/${userLogin.id}/${packId}`, { pack_name: packname, price: price});
+                setBuyStatus(2);
+                window.location.reload();
+            }
+            else setBuyStatus(1);
+        }
+        catch {
+            setBuyStatus(1);
+        }
+    }
 
     useEffect(() => {
         console.log("reload");
@@ -114,22 +180,54 @@ const VideoCourse = () => {
         Axios.get(`http://localhost:3001/getCmt/${packId}`).then((response) => {
             setCommentList(response.data);
         })
-    }, [instructorId]);
-    // popup video
-    var popup = document.querySelectorAll('#content .list__items');
-    popup.forEach(vid => {
-        vid.onclick = () => {
-        document.querySelector('.popup-video').style.display = 'block';
-            document.querySelector('.popup-video video').src = vid.querySelector('.video').getAttribute('src');
+        if (userLogin != null) {
+            Axios.get(`http://localhost:3001/getRating/${userLogin.id}/${packId}`).then((response) => {
+                try 
+                {
+                    setCurrStar(response.data[0].star);
+                }
+                catch 
+                {
+                    setCurrStar(-1);
+                }
+            })
+            Axios.get(`http://localhost:3001/userPack/${userLogin.id}/${packId}`).then((response) => {
+                try 
+                {
+                    setUserPack(response.data);
+                    setUserPackId(response.data[0].id);
+                }
+                catch 
+                {
+                    setUserPackId(-1);
+                }
+            })
+            console.log(userPackId);
         }
-    });
-    var close_vid = document.getElementById('closeSpan');
-    if (close_vid != null) {
-        close_vid.onclick = () => {
-            document.querySelector('.popup-video').style.display = 'none';
-            document.querySelector('.popup-video video').pause();
+        // popup video
+        var popup = document.querySelectorAll('#content .list__items');
+        popup.forEach(vid => {
+            vid.onclick = () => {
+            document.querySelector('.popup-video').style.display = 'block';
+                document.querySelector('.popup-video video').src = vid.querySelector('.video').getAttribute('src');
+            }
+        });
+        var close_vid = document.getElementById('closeSpan');
+        if (close_vid != null) {
+            close_vid.onclick = () => {
+                document.querySelector('.popup-video').style.display = 'none';
+                document.querySelector('.popup-video video').pause();
+            }
         }
-    }
+    }, [instructorRating]);
+    
+    var getStar = document.querySelectorAll('input[name="rating"]');
+    getStar.forEach(starr => {
+        starr.onclick = () => {
+            setStar(starr.value);
+        }
+    })
+
     return (
         <div>
             {pack.map((info) => {
@@ -140,30 +238,26 @@ const VideoCourse = () => {
                                 <h1>{info.packs_name}</h1>
                                 <div class="banner__subtitle">
                                     <p>{info.punch_line}</p>
-                                    <button class="letgo-btn">Let's go!</button>
-                                    {/* @if ($check == NULL) 
-                                <form action="{{url('/add-pack')}}/{{$pack->id}}" method="post">
-                                    @csrf
-                                    @if($pack->price > 0)
-                                    <button>Get pack with {{$pack->price}} US$</button>
-                                    @else
-                                    <button>Get pack for FREE</button>
-                                    @endif
-                                </form>
-                                @else 
-                                    <button class="letgo-btn">Let's go!</button>
-                                @endif
-                                @if (session('status'))
-                                <div class="alert alert-success" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert">×</button>
-                                    {{ session('status') }}
-                                </div>
-                                @elseif(session('failed'))
-                                <div class="alert alert-danger" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert">×</button>
-                                    {{ session('failed') }}
-                                </div>
-                                @endif */}
+                                    {userPackId != -1 ? 
+                                        <button class="letgo-btn" onClick={() => setNetTag(1)}>Let's go!</button>
+                                    : info.price > 0 ? 
+                                        <button onClick={() => getPack(info.packs_name, info.price)}>Get pack with {info.price} US$</button>
+                                    :
+                                        <button onClick={() => getPack(info.packs_name, info.price)}>Get pack for FREE</button>
+                                    }                                    
+                                {buyStatus == 2 ? 
+                                    <div class="alert alert-success" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert">×</button>
+                                            Add to you packs successfully
+                                    </div>
+                                : buyStatus == 1 ? 
+                                    <div class="alert alert-danger" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert">×</button>
+                                            Looks like you're out of money
+                                    </div>
+                                : 
+                                    ""
+                                }
                                 </div>
                             </div>
                         </div>
@@ -243,10 +337,6 @@ const VideoCourse = () => {
                                                                 <span>Video</span>
                                                                 <span>{item.Content}</span>
                                                             </div>
-                                                            {/* {item.stt == 1 ? 
-                                                            <div class="video" src={require(`../videos/${item.Content}.html`)} muted></div>
-                                                            :
-                                                        } */}
                                                         <div class="video" src={require(`../videos/tmp.mp4`)}></div>
                                                         </a>
                                                         <div class="items__logo">
@@ -309,55 +399,71 @@ const VideoCourse = () => {
                                             <li>{info.pre_3}</li>
                                         </p>
                                         <div class="infoBox__text">
-                                            <form action="" method="post"> {/* {{url('/rating')}}/{{$pack->id}} */}
-                                                {/* @csrf */}
+                                            <div>
                                                 {/* <!-- rating --> */}
                                                 <span>Rating pack</span>
-                                                {/* @if (session('ratingSuccessed'))
-                                                <div class="alert alert-success" role="alert">
-                                                    <button type="button" class="close" data-dismiss="alert">×</button>
-                                                    {{ session('ratingSuccessed') }}
-                                                </div>
-                                            @endif
-                                            @if (session('ratingFailed'))
-                                                <div class="alert alert-danger" role="alert">
-                                                    <button type="button" class="close" data-dismiss="alert">×</button>
-                                                    {{ session('ratingFailed') }}
-                                                </div>
-                                            @endif */}
-                                                <button>Rating</button>
-                                                <div id="rating">
-                                                    <input type="radio" id="star5" name="rating" value="5" />
-                                                    <label class="full" htmlFor="star5" title="Awesome - 5 stars"></label>
+                                                {ratingStatus == 2 ? 
+                                                    <div class="alert alert-success" role="alert">
+                                                        <button type="button" class="close" data-dismiss="alert">×</button>
+                                                        Rating Successed
+                                                    </div>
+                                                : ratingStatus == 1 ? 
+                                                    <div class="alert alert-danger" role="alert">
+                                                        <button type="button" class="close" data-dismiss="alert">×</button>
+                                                        Rating Failed
+                                                    </div>
+                                                :
+                                                    ""
+                                                }
+                                                {currStar == -1 ? 
+                                                    <div>
+                                                        <button onClick={newRating}>Rating</button>
+                                                        <div id="rating">
+                                                            <input type="radio" id="star5" name="rating" value="5" />
+                                                            <label class="full" htmlFor="star5" title="Awesome - 5 stars"></label>
 
-                                                    <input type="radio" id="star4half" name="rating" value="4.5" />
-                                                    <label class="half" htmlFor="star4half" title="Pretty good - 4.5 stars"></label>
+                                                            <input type="radio" id="star4half" name="rating" value="4.5" />
+                                                            <label class="half" htmlFor="star4half" title="Pretty good - 4.5 stars"></label>
 
-                                                    <input type="radio" id="star4" name="rating" value="4" />
-                                                    <label class="full" htmlFor="star4" title="Pretty good - 4 stars"></label>
+                                                            <input type="radio" id="star4" name="rating" value="4" />
+                                                            <label class="full" htmlFor="star4" title="Pretty good - 4 stars"></label>
 
-                                                    <input type="radio" id="star3half" name="rating" value="3.5" />
-                                                    <label class="half" htmlFor="star3half" title="Meh - 3.5 stars"></label>
+                                                            <input type="radio" id="star3half" name="rating" value="3.5" />
+                                                            <label class="half" htmlFor="star3half" title="Meh - 3.5 stars"></label>
 
-                                                    <input type="radio" id="star3" name="rating" value="3" />
-                                                    <label class="full" htmlFor="star3" title="Meh - 3 stars"></label>
+                                                            <input type="radio" id="star3" name="rating" value="3" />
+                                                            <label class="full" htmlFor="star3" title="Meh - 3 stars"></label>
 
-                                                    <input type="radio" id="star2half" name="rating" value="2.5" />
-                                                    <label class="half" htmlFor="star2half" title="Kinda bad - 2.5 stars"></label>
+                                                            <input type="radio" id="star2half" name="rating" value="2.5" />
+                                                            <label class="half" htmlFor="star2half" title="Kinda bad - 2.5 stars"></label>
 
-                                                    <input type="radio" id="star2" name="rating" value="2" />
-                                                    <label class="full" htmlFor="star2" title="Kinda bad - 2 stars"></label>
+                                                            <input type="radio" id="star2" name="rating" value="2" />
+                                                            <label class="full" htmlFor="star2" title="Kinda bad - 2 stars"></label>
 
-                                                    <input type="radio" id="star1half" name="rating" value="1.5" />
-                                                    <label class="half" htmlFor="star1half" title="Meh - 1.5 stars"></label>
+                                                            <input type="radio" id="star1half" name="rating" value="1.5" />
+                                                            <label class="half" htmlFor="star1half" title="Meh - 1.5 stars"></label>
 
-                                                    <input type="radio" id="star1" name="rating" value="1" />
-                                                    <label class="full" htmlFor="star1" title="Sucks big time - 1 star"></label>
+                                                            <input type="radio" id="star1" name="rating" value="1" />
+                                                            <label class="full" htmlFor="star1" title="Sucks big time - 1 star"></label>
 
-                                                    <input type="radio" id="starhalf" name="rating" value="0.5" />
-                                                    <label class="half" htmlFor="starhalf" title="Sucks big time - 0.5 stars"></label>
-                                                </div>
-                                            </form>
+                                                            <input type="radio" id="starhalf" name="rating" value="0.5" />
+                                                            <label class="half" htmlFor="starhalf" title="Sucks big time - 0.5 stars"></label>
+                                                        </div>
+                                                    </div>
+                                                :
+                                                    <label class="rating-label"><strong>Your rating is {currStar} <code>readonly</code></strong>
+                                                    <input
+                                                    class="rating"
+                                                    max="5"
+                                                    readOnly
+                                                    step="0.01"
+                                                    style={{ ['--fill']:'rgb(159, 87, 87)', ['--value']:`${currStar}`}}
+                                                    type="range"
+                                                    value={`${currStar}`}
+                                                    /> 
+                                                    </label>
+                                                }
+                                            </div>
                                         </div>
                                     </aside>
                                 </div>
@@ -377,7 +483,7 @@ const VideoCourse = () => {
                                                 </div>
                                             </div>
                                             <div class="coment-bottom bg-white p-2 px-4">
-                                                <div class="d-flex flex-row add-comment-section mt-4 mb-4" > {/* {{url('/add-comment')}}/{{$pack->id}} */}
+                                                <div class="d-flex flex-row add-comment-section mt-4 mb-4" > 
                                                     <input type="text" class="form-control mr-3" name="content" placeholder="Let everyone know what you think" onChange={(e) => {
                                                         setContent(e.target.value)
                                                     }} />
@@ -385,25 +491,24 @@ const VideoCourse = () => {
                                                         Comment
                                                     </button>
                                                 </div>
-                                                {/* @if (session('commentSuccessed'))
-                                                <div class="alert alert-success" role="alert">
-                                                    <button type="button" class="close" data-dismiss="alert">×</button>
-                                                    {{ session('commentSuccessed') }}
-                                                </div>
-                                            @endif
-                                            @if (session('commentFailed'))
-                                                <div class="alert alert-danger" role="alert">
-                                                    <button type="button" class="close" data-dismiss="alert">×</button>
-                                                    {{ session('commentFailed') }}
-                                                </div>
-                                            @endif */}
-                                                {/* @foreach($comment as $cmt)  */}
+                                                {cmtStatus == 2 ? 
+                                                    <div class="alert alert-success" role="alert">
+                                                        <button type="button" class="close" data-dismiss="alert">×</button>
+                                                        Refresh to see your change 
+                                                    </div>
+                                                : cmtStatus == 1 ? 
+                                                    <div class="alert alert-danger" role="alert">
+                                                        <button type="button" class="close" data-dismiss="alert">×</button>
+                                                        Your action was fail
+                                                    </div>
+                                                :
+                                                ""
+                                                }
                                                 {commentList.map((val) => {
                                                     return (
                                                         <div class="commented-section mt-2">
                                                             <div class="d-flex flex-row align-items-center commented-user">
                                                                 <h5>{val.nick_name}</h5><span class="dot mb-1"></span>
-                                                                {/* <button class="ml-2 mt-1">Edit</button> */}
                                                             </div>
                                                             <div class="comment-text-sm"><span>
                                                                 {val.content}
@@ -411,20 +516,21 @@ const VideoCourse = () => {
                                                             </div>
                                                             <div class="reply-section">
                                                                 <div class="d-flex flex-row align-items-center voting-icons">
-                                                                    <a class="fa fa-sort-up fa-2x mt-3 hit-voting" onClick={() => {submitVote(val.id, val.vote + 1)}}></a> {/* {{url('/increase-vote')}}/{{$cmt->id}} */}
-                                                                    <a class="fa fa-sort-down fa-2x mb-3 hit-voting" onClick={() => {submitVote(val.id, val.vote - 1)}}></a> {/* {{url('/decrease-vote')}}/{{$cmt->id}} */}
+                                                                    <a class="fa fa-sort-up fa-2x mt-3 hit-voting" onClick={() => {submitVote(val.id, val.vote + 1)}}></a>
+                                                                    <a class="fa fa-sort-down fa-2x mb-3 hit-voting" onClick={() => {submitVote(val.id, val.vote - 1)}}></a>
                                                                     <span class="ml-2">
                                                                         {val.vote}
                                                                     </span><span class="dot ml-2"></span>
-                                                                    {/* @if ($cmt->nick_name == session('username')) */}
-                                                                    <button class="ml-2 mt-1 bdge mr-1" onClick={() => {deleteComment(val.id)}}>Delete</button> {/* {{url('/delete-comment')}}/{{$cmt->id}} */}
-                                                                    {/* @endif */}
+                                                                    {userLogin != null && userLogin.id == val.user_id ? 
+                                                                        <button class="ml-2 mt-1 bdge mr-1" onClick={() => {deleteComment(val.id)}}>Delete</button> 
+                                                                    :
+                                                                        ""
+                                                                    }
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     )
                                                 })}
-                                                {/* @endforeach */}
                                             </div>
                                         </div>
                                     </div>

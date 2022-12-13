@@ -14,32 +14,32 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Routes>
-          {/* Trang chủ */}
-          <Route exact path='/' element={ <Homepage/> } />
-          <Route exact path='/home' element={ <Homepage/> } />
+          <Routes>
+            {/* Trang chủ */}
+            <Route exact path='/' element={ <Homepage/> } />
+            <Route exact path='/home' element={ <Homepage/> } />
 
-          {/* Đăng nhập */}
-          <Route exact path='/log-in' element={ <Login /> } />
+            {/* Đăng nhập */}
+            <Route exact path='/log-in' element={ <Login /> } />
 
-          {/* Đăng ký */}
-          <Route exact path='/register' element={ <DangKi /> } />
+            {/* Đăng ký */}
+            <Route exact path='/register' element={ <DangKi /> } />
 
-          {/* Hồ sơ */}
-          <Route exact path='/profile' element={ <Profile /> } />
+            {/* Hồ sơ */}
+            <Route exact path='/profile' element={ <Profile /> } />
 
-          {/* Instructor */}
-          <Route exact path='/instructor' element={ <Instructor /> } />
+            {/* Instructor */}
+            <Route exact path='/instructor' element={ <Instructor /> } />
 
-          {/* Xem khoá học */}
-          <Route exact path='/viewmore/:type' element={ <ViewMore/> } />
+            {/* Xem khoá học */}
+            <Route exact path='/viewmore/:type' element={ <ViewMore/> } />
 
-          {/* Trả phí */}
-          <Route exact path='/videocourse/:id' element={ <VideoCourse /> } />
+            {/* Trả phí */}
+            <Route exact path='/videocourse/:id' element={ <VideoCourse /> } />
 
-          {/* Contact us */}
-          
-        </Routes>
+            {/* Contact us */}
+
+            </Routes>
       </BrowserRouter>
     </div>
   );

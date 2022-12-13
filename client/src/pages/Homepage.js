@@ -65,7 +65,6 @@ import { useState, useEffect } from 'react';
                     <div class="string-line"></div>
                 </h1>
                 <div class="course-packs">
-                    {/* @foreach */}
                     {primePacks_detailsList.map((pack) => {
                         return (
                             <div class="prime-wrap" key={pack.id}>
@@ -97,7 +96,6 @@ import { useState, useEffect } from 'react';
                             </div>          
                             ) 
                         })}
-                    {/* @endforeach */}
                 </div>
                 <div class="clear"></div>
                 <div class="prime-viewmore">
@@ -115,7 +113,6 @@ import { useState, useEffect } from 'react';
                     <div class="string-line"></div>
                 </h1>
                 <div class="course-packs">
-                    {/* @foreach */}
                     {freePacks_detailsList.map((pack2) => {
                         return (
                             <div class="prime-wrap" key={pack2.id}>
@@ -124,12 +121,11 @@ import { useState, useEffect } from 'react';
                                         <span>Free Pack</span>
                                     </div>
                                     <div class="course-card-thumbnail rounded">
-                                        <a href={`/videocourse/${pack2.id}`} target="_blank">
+                                        <a href={`/videocourse/${pack2.id}`}>
                                             <img class="rounded-img" src={require(`../img/viewMore/${pack2.packs_name}.jpg`)} alt={pack2.packs_name} title="FullStack Web Development"/>
                                             <span class="prime-icon-trigger"></span>
                                         </a>
                                     </div>
-                                    {/* backend */}
                                     <div class="primepack-card-body">
                                         <h4 class="h48">
                                             <a href={`/videocourse/${pack2.id}`} title="FullStack Web Development">{pack2.packs_name}</a>
@@ -148,7 +144,6 @@ import { useState, useEffect } from 'react';
                             </div>
                         )
                     })}
-                    {/* @endforeach */}
                 </div>
                 <div class="clear"></div>
                 <div class="prime-viewmore">
