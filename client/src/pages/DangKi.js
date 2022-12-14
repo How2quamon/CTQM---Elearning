@@ -20,16 +20,12 @@ function DangKi() {
         }).then(() => {
             alert("successful register");
         });
-        //   setFullName('');
-        //   setUserName('');
-        //   setPassword('');
     };
 
     return (
         <div>
             <div class="Signup">
                 <div >
-                    {/* action="create-user" method="post" */}
                     {/* @csrf */}
                     <section class="copy">
                         <h2>SIGN UP NOW</h2>

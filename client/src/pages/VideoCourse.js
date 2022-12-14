@@ -204,23 +204,23 @@ const VideoCourse = () => {
             })
             console.log(userPackId);
         }
-        // popup video
-        var popup = document.querySelectorAll('#content .list__items');
-        popup.forEach(vid => {
-            vid.onclick = () => {
-            document.querySelector('.popup-video').style.display = 'block';
-                document.querySelector('.popup-video video').src = vid.querySelector('.video').getAttribute('src');
-            }
-        });
-        var close_vid = document.getElementById('closeSpan');
-        if (close_vid != null) {
-            close_vid.onclick = () => {
-                document.querySelector('.popup-video').style.display = 'none';
-                document.querySelector('.popup-video video').pause();
-            }
-        }
     }, [instructorId]);
     
+    // popup video
+    var popup = document.querySelectorAll('#content .list__items');
+    popup.forEach(vid => {
+        vid.onclick = () => {
+        document.querySelector('.popup-video').style.display = 'block';
+            document.querySelector('.popup-video video').src = vid.querySelector('.video').getAttribute('src');
+        }
+    });
+    var close_vid = document.getElementById('closeSpan');
+    if (close_vid != null) {
+        close_vid.onclick = () => {
+            document.querySelector('.popup-video').style.display = 'none';
+            document.querySelector('.popup-video video').pause();
+        }
+    }
     var getStar = document.querySelectorAll('input[name="rating"]');
     getStar.forEach(starr => {
         starr.onclick = () => {
@@ -337,7 +337,7 @@ const VideoCourse = () => {
                                                                 <span>Video</span>
                                                                 <span>{item.Content}</span>
                                                             </div>
-                                                        <div class="video" src={require(`../videos/tmp.mp4`)}></div>
+                                                        <div class="video" src={require(`../videos/intro.mp4`)}></div>
                                                         </a>
                                                         <div class="items__logo">
                                                             <span>CTQM</span>

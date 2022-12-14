@@ -1,4 +1,4 @@
-import React, {Component, useContext} from "react";
+import React, {Component, useContext, useEffect} from "react";
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import * as GiIcons from 'react-icons/gi';
@@ -14,6 +14,9 @@ const Navbar = () => {
         logOutUser();
         window.open('/', "_self");
     }
+    useEffect(() => {
+        console.log(window.location.pathname);
+    })
 
     return(
         <nav className="navbar navbar-expand-lg">
@@ -62,6 +65,10 @@ const Navbar = () => {
                                 <button onClick={Logout} class="btn btn-link btn-logout"><BsIcons.BsBoxArrowRight/> Logout</button>
                             </div>
                         </div>
+                    </div>
+                    : window.location.pathname == "/log-in" ? 
+                    <div class="navbar-nav action-buttons ml-auto">
+                        <a href={`/register`} target="_self" class="btn btn-login"> Register</a>
                     </div>
                     :
                     <div class="navbar-nav action-buttons ml-auto">

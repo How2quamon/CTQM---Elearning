@@ -165,12 +165,12 @@ a:hover {
     font-size: 0.875rem;
 
 }
-.Signup form {
+.Signup div {
     width:328px;
 }
-form input[type="text"],
-form input[type="username"],
-form input[type="password"] {
+div input[type="text"],
+div input[type="username"],
+div input[type="password"] {
     display: block;
     width:100%;
     box-sizing: border-box;
