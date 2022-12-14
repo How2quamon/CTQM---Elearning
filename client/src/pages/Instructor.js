@@ -4,10 +4,10 @@ import { useState, useEffect, useContext } from 'react';
 import '../css/Instruct.css';
 import '../css/star.css';
 import { UserContext } from '../components/Context/UserContext';
-import insImg from '../img/profile/Instructor.jpg'
+import insImg from '../img/profile/instructor.jpg'
 
 const Instructor = () => {
-    const {userLogin, setUserLogin} = useContext(UserContext);
+    const { userLogin, setUserLogin } = useContext(UserContext);
 
     const [insId, setInsId] = useState(window.location.pathname.split('/')[2]);
     const [insInfo, setInsInfo] = useState([]);
@@ -17,19 +17,18 @@ const Instructor = () => {
     const [currStar, setCurrStar] = useState(0);
     const [star, setStar] = useState(0);
     const [checkPacks, setCheckPacks] = useState([]);
-    
+
     const newInsRating = () => {
-        try
-        {
+        try {
             console.log(checkPacks.length);
             if (userLogin != null && checkPacks.length >= 0) {
-                Axios.post(`http://localhost:3001/newInsRating`, { user_id: userLogin.id, ins_id: insId, star: star});
+                Axios.post(`http://localhost:3001/newInsRating`, { user_id: userLogin.id, ins_id: insId, star: star });
                 setRatingStatus(2);
                 window.location.reload();
             }
             else setRatingStatus(1);
         }
-        catch 
+        catch
         {
             setRatingStatus(1);
         }
@@ -52,11 +51,10 @@ const Instructor = () => {
                 setCheckPacks(response.data);
             })
             Axios.get(`http://localhost:3001/getInsRating/${userLogin.id}/${insId}`).then((response) => {
-                try 
-                {
+                try {
                     setCurrStar(response.data[0].star);
                 }
-                catch 
+                catch
                 {
                     setCurrStar(-1);
                 }
@@ -79,8 +77,8 @@ const Instructor = () => {
                             <div class="my-follow">
                                 <a class="infor" href=""><i class="ti-bookmark-alt"></i> {insPacks.length} Packs</a>
                             </div>
-                                {insRating.map((rat) => {
-                                    return (
+                            {insRating.map((rat) => {
+                                return (
                                     <label class="rating-label">
                                         <strong>Average rating is {rat.avg_star} <code>readonly</code></strong>
                                         <input
@@ -93,58 +91,58 @@ const Instructor = () => {
                                             value={rat.avg_star}
                                         />
                                     </label>
-                                    )
-                                })}
+                                )
+                            })}
                             <div class="title">Rating Instructor</div>
-                            {currStar == -1 ? 
+                            {currStar == -1 ?
                                 <div>
-                                    {ratingStatus == 2 ? 
+                                    {ratingStatus == 2 ?
                                         <div class="alert alert-success" role="alert">
                                             <button type="button" class="close" data-dismiss="alert">×</button>
                                             Rating Successed
                                         </div>
-                                    : ratingStatus == 1 ? 
-                                        <div class="alert alert-danger" role="alert">
-                                            <button type="button" class="close" data-dismiss="alert">×</button>
-                                            Rating Failed
-                                        </div>
-                                    :
-                                        ""
+                                        : ratingStatus == 1 ?
+                                            <div class="alert alert-danger" role="alert">
+                                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                                Rating Failed
+                                            </div>
+                                            :
+                                            ""
                                     }
                                     <button type="submit" onClick={newInsRating}>Rating</button>
                                     <div id="rating">
-                                        <input type="radio" id="star5" name="rating" value="5" onClick={() => setStar(5)}/>
+                                        <input type="radio" id="star5" name="rating" value="5" onClick={() => setStar(5)} />
                                         <label class="full" htmlFor="star5" title="Awesome - 5 stars"></label>
-    
-                                        <input type="radio" id="star4half" name="rating" value="4.5" onClick={() => setStar(4.5)}/>
+
+                                        <input type="radio" id="star4half" name="rating" value="4.5" onClick={() => setStar(4.5)} />
                                         <label class="half" htmlFor="star4half" title="Pretty good - 4.5 stars"></label>
-    
-                                        <input type="radio" id="star4" name="rating" value="4" onClick={() => setStar(4)}/>
+
+                                        <input type="radio" id="star4" name="rating" value="4" onClick={() => setStar(4)} />
                                         <label class="full" htmlFor="star4" title="Pretty good - 4 stars"></label>
-    
-                                        <input type="radio" id="star3half" name="rating" value="3.5" onClick={() => setStar(3.5)}/>
+
+                                        <input type="radio" id="star3half" name="rating" value="3.5" onClick={() => setStar(3.5)} />
                                         <label class="half" htmlFor="star3half" title="Meh - 3.5 stars"></label>
-    
-                                        <input type="radio" id="star3" name="rating" value="3" onClick={() => setStar(3)}/>
+
+                                        <input type="radio" id="star3" name="rating" value="3" onClick={() => setStar(3)} />
                                         <label class="full" htmlFor="star3" title="Meh - 3 stars"></label>
-    
-                                        <input type="radio" id="star2half" name="rating" value="2.5" onClick={() => setStar(2.5)}/>
+
+                                        <input type="radio" id="star2half" name="rating" value="2.5" onClick={() => setStar(2.5)} />
                                         <label class="half" htmlFor="star2half" title="Kinda bad - 2.5 stars"></label>
-    
-                                        <input type="radio" id="star2" name="rating" value="2" onClick={() => setStar(2)}/>
+
+                                        <input type="radio" id="star2" name="rating" value="2" onClick={() => setStar(2)} />
                                         <label class="full" htmlFor="star2" title="Kinda bad - 2 stars"></label>
-    
-                                        <input type="radio" id="star1half" name="rating" value="1.5" onClick={() => setStar(1.5)}/>
+
+                                        <input type="radio" id="star1half" name="rating" value="1.5" onClick={() => setStar(1.5)} />
                                         <label class="half" htmlFor="star1half" title="Meh - 1.5 stars"></label>
-    
-                                        <input type="radio" id="star1" name="rating" value="1" onClick={() => setStar(1)}/>
+
+                                        <input type="radio" id="star1" name="rating" value="1" onClick={() => setStar(1)} />
                                         <label class="full" htmlFor="star1" title="Sucks big time - 1 star"></label>
-    
-                                        <input type="radio" id="starhalf" name="rating" value="0.5" onClick={() => setStar(0.5)}/>
+
+                                        <input type="radio" id="starhalf" name="rating" value="0.5" onClick={() => setStar(0.5)} />
                                         <label class="half" htmlFor="starhalf" title="Sucks big time - 0.5 stars"></label>
                                     </div>
                                 </div>
-                            :
+                                :
                                 <label class="rating-label">
                                     <strong>Your rating was {currStar} <code>readonly</code></strong>
                                     <input
