@@ -71,9 +71,9 @@ const VideoCourse = () => {
         try 
         {
             if (userLogin != null && userPackId != -1) {
-                setAction(action + 1);
-                console.log(action);
                 if (content.trim().length !== 0) {
+                    console.log(action);
+                    setAction(action + 1);
                     Axios.post(`http://localhost:3001/newComment/${packId}`, { content: content });
                     setCmtStatus(2);
                 }
@@ -90,10 +90,10 @@ const VideoCourse = () => {
     const submitVote = (id, value) => {
         try {
             if (userLogin != null && userPackId != -1) {
-                setAction(action + 1);
                 setVoteId(id);
                 setVote(value);
-                Axios.put(`http://localhost:3001/updateVote`, { id: voteId, vote: vote });
+                setAction(action + 1);
+                Axios.put(`http://localhost:3001/updateVote`, { id: id, vote: value });
                 setCmtStatus(2);
             } 
             else setCmtStatus(1);
@@ -108,9 +108,9 @@ const VideoCourse = () => {
     const deleteComment = (id) => {
         try {
             if (userLogin != null && userPackId != -1) {
-                setAction(action + 1);
                 setCommentId(id);
-                Axios.delete(`http://localhost:3001/cmtdelete/${commentId}`);
+                setAction(action + 1);
+                Axios.delete(`http://localhost:3001/cmtdelete/${id}`);
                 setCmtStatus(2);
             }
             else setCmtStatus(1);
@@ -516,13 +516,13 @@ const VideoCourse = () => {
                                                             </div>
                                                             <div class="reply-section">
                                                                 <div class="d-flex flex-row align-items-center voting-icons">
-                                                                    <a class="fa fa-sort-up fa-2x mt-3 hit-voting" onClick={() => {submitVote(val.id, val.vote + 1)}}></a>
-                                                                    <a class="fa fa-sort-down fa-2x mb-3 hit-voting" onClick={() => {submitVote(val.id, val.vote - 1)}}></a>
+                                                                    <a class="fa fa-sort-up fa-2x mt-3 hit-voting" onClick={() => submitVote(val.id, val.vote + 1)}></a>
+                                                                    <a class="fa fa-sort-down fa-2x mb-3 hit-voting" onClick={() => submitVote(val.id, val.vote - 1)}></a>
                                                                     <span class="ml-2">
                                                                         {val.vote}
                                                                     </span><span class="dot ml-2"></span>
                                                                     {userLogin != null && userLogin.id == val.user_id ? 
-                                                                        <button class="ml-2 mt-1 bdge mr-1" onClick={() => {deleteComment(val.id)}}>Delete</button> 
+                                                                        <button class="ml-2 mt-1 bdge mr-1" onClick={() => deleteComment(val.id)}>Delete</button> 
                                                                     :
                                                                         ""
                                                                     }

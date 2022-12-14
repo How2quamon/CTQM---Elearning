@@ -209,7 +209,7 @@ app.put("/updateVote", (req, res) => {
         if (err) console.log(err);
         else console.log(result);
     });
-})
+});
 
 // Dữ liệu giảng viên (Instructor)
 app.get('/getInstructor/:id', (req, res) => {
