@@ -37,7 +37,7 @@ const Login = () => {
             <section class="copy">
                 <h2>LOG IN NOW</h2>
                 <div class="signup-container">
-                    <p>Don't have an account yet? <a href="sign-up">
+                    <p>Don't have an account yet? <a href="/register">
                     Sign up</a></p>
                 </div> 
             </section>
